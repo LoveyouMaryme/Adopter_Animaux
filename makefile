@@ -1,4 +1,4 @@
-export FLASK_APP=index.py
+export FLASK_APP=index.py 
 
 run:
-	flask run
+	flask run --debug

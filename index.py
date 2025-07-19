@@ -20,6 +20,7 @@ from .database import Database
 app = Flask(__name__, static_url_path="", static_folder="static")
 
 
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
@@ -35,6 +36,6 @@ def close_connection(exception):
 
 
 @app.route('/')
-def form():
+def index():
     # À remplacer par le contenu de votre choix.
-    return render_template('form.html')
+    return render_template('index.html')
