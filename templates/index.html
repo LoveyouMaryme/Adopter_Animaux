@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 
+{% block css_file %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+{% endblock %}
 
 {% block title %}
 Document
 {% endblock %}
 
 {% block content %}
-<h1>Test</h1>
+<div class="container">
+    <form action="">
+        <label class="form-label" for="name">Enter Name</label>
+        <input type="text" name="name" class="form-control">
+        <label class="form-label" for="name">Enter Name</label>
+        <input type="text" name="name" class="form-control form-control-color">
+        <button>Submit</button>
+
+    </form>
+</div>
+
+
+</div>
 {% endblock %}
