@@ -1,0 +1,12 @@
+#gif {
+  width: 4rem;
+}
+
+img:not(#gif) {
+  width: 2rem;
+  height: 2rem;
+}
+
+#background-website {
+  background-color: #e0ecf5;
+}

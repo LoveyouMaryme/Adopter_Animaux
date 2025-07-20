@@ -1,25 +1,55 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block css_file %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}" />
+{% endblock %} {% block title %} Document {% endblock %} {% block content %}
 
-{% block css_file %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
-{% endblock %}
-
-{% block title %}
-Document
-{% endblock %}
-
-{% block content %}
-<div class="container">
-    <form action="">
-        <label class="form-label" for="name">Enter Name</label>
-        <input type="text" name="name" class="form-control">
-        <label class="form-label" for="name">Enter Name</label>
-        <input type="text" name="name" class="form-control form-control-color">
-        <button>Submit</button>
-
-    </form>
+<div class="bg-primary" id="background-website">
+  <div class="container-fluid">
+    <img
+      id="gif"
+      src="{{url_for('static', filename='images/icons/gif/cat.gif')}}"
+      alt=""
+    />
+  </div>
+  <div class="container bg-white"></div>
+  <nav class="navbar navbar-expand navbar-expand-lg bg-light px-5">
+    <div class="container-fluid">
+      <a href="#" class="navbar-brand">
+        <img
+          src="{{url_for('static', filename='images/icons/FosterCarePet.png')}}"
+          alt="bouton maison"
+          class="d-inline-block align-text-top"
+        />
+        Patte <br />
+        d'acceuil
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse d-flex flex-row justify-content-center"
+        id="navbarNavAltMarkup"
+      >
+        <div class="navbar-nav d-flex flex-row justify-content-center gap-5">
+          <a href="" class="nav-link">Rencontre ton BFF</a>
+          <a href="" class="nav-link">Reloger un animal </a>
+          <a href="" class="nav-link">
+            <img
+              src="{{url_for('static', filename='images/icons/team.png')}}"
+              alt=""
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
 </div>
 
-
-</div>
 {% endblock %}
