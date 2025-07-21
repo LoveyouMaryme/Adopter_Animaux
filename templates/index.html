@@ -3,155 +3,164 @@
 {% endblock %} {% block title %} Document {% endblock %} {% block content %}
 
 <div class="bg-primary" id="background-website">
+  <div class="container-fluid">
+    <img
+      id="gif"
+      src="{{url_for('static', filename='images/icons/gif/cat.gif')}}"
+      alt=""
+    />
+  </div>
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-expand-lg bg-light px-5 bg-between-p-s">
     <div class="container-fluid">
-        <img id="gif" src="{{url_for('static', filename='images/icons/gif/cat.gif')}}" alt="" />
-    </div>
-    <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg bg-light px-5 bg-between-p-s">
-        <div class="container-fluid">
-            <a href="#" class="navbar-brand">
-                <span><img src="{{url_for('static', filename='images/icons/house-pet.png')}}" alt="bouton maison"
-                        class="d-inline-block align-text-top" /></span>
-                <span>Patte <br />
-                    d'acceuil</span>
-            </a>
+      <a href="#" class="navbar-brand">
+        <span
+          ><img
+            src="{{url_for('static', filename='images/icons/house-pet.png')}}"
+            alt="bouton maison"
+            class="d-inline-block align-text-top"
+        /></span>
+        <span
+          >Patte <br />
+          d'acceuil</span
+        >
+      </a>
 
-            <!-- Hambuger button -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+      <!-- Hambuger button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapsing menu -->
+      <div
+        class="collapse navbar-collapse justify-content-center"
+        id="navbarNavAltMarkup"
+      >
+        <div class="navbar-nav d-flex flex-row justify-content-center gap-5">
+          <a href="" class="nav-link">Rencontre ton BFF</a>
+          <a href="" class="nav-link">Reloger un animal </a>
+          <a href="" class="nav-link">Jasons !</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Hero menu -->
+  <div class="container py-5">
+    <div class="row">
+      <div
+        class="col-md-6 d-flex flex-column justify-content-center align-items-center px-md-3"
+      >
+        <p class="fs-1 fw-bolder px-5 mb-3 text-dark text-center">
+          <nobr> À la maison, c’est mieux! </nobr><br />
+          <span class="text-secondary">Grâce à vous</span>, des coeurs<br />
+          <nobr>se rencontrent</nobr>
+        </p>
+        <button
+          class="btn btn-secondary p-1 btn-md fs-6 fw-semi-bold rounded-3"
+          type="submit"
+        >
+          Faites le saut
+        </button>
+      </div>
+      <div class="col">
+        <img
+          class="img-fluid rounded-5 text-end shadow"
+          src="{{url_for('static', filename='images/chat-dort.jpg')}}"
+          alt="Chat qui dort"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu cards -->
+  <div class="container py-2" id="card-section">
+    <div class="row justify-content-center align-items-stretch g-2">
+      {% for card in card_index %}
+      <div class="card-pet col-md-4">
+        <div
+          class="bg-light rounded-3 shadow p-3 text-center h-30 w-100 d-flex flex-column justify-content-between"
+        >
+          <img
+            class="img-fluid mx-auto"
+            src="{{ url_for('static', filename=card.image_link) }}"
+            alt="{{card.text_button}}"
+          />
+          <p class="mt-1 text-dark">{{card.text}}</p>
+          <div class="px-3">
+            <button class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5">
+              {{card.text_button}}
             </button>
-
-            <!-- Collapsing menu -->
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
-                <div class="navbar-nav d-flex flex-row justify-content-center gap-5">
-                    <a href="" class="nav-link">Rencontre ton BFF</a>
-                    <a href="" class="nav-link">Reloger un animal </a>
-                    <a href="" class="nav-link">Jasons !</a>
-                </div>
-            </div>
+          </div>
         </div>
-    </nav>
-    <!-- Hero menu -->
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center px-md-3">
-                <p class="fs-1 fw-bolder px-5 mb-3 text-dark text-center">
-                    <nobr> À la maison, c’est mieux! </nobr><br />
-                    <span class="text-secondary">Grâce à vous</span>, des coeurs<br />
-                    <nobr>se rencontrent</nobr>
-                </p>
-                <button class="btn btn-secondary p-1 btn-md fs-6 fw-semi-bold rounded-3" type="submit">
-                    Faites le saut
-                </button>
-            </div>
-            <div class="col">
-                <img class="img-fluid rounded-5 text-end shadow"
-                    src="{{url_for('static', filename='images/chat-dort.jpg')}}" alt="Chat qui dort" />
-            </div>
-        </div>
+      </div>
+      {% endfor %}
     </div>
+  </div>
+  <!-- Pet selector section -->
+  <div class="container-fluid px-3 w-100">
+    <div class="row align-items-center justify-content-center py-5 gx-3">
+      <!-- Left Arrow -->
+      <div class="pet-switch col-1 d-flex justify-content-center">
+        <img
+          src="{{ url_for('static', filename='images/icons/arrow-left.png') }}"
+          alt="Voir autre animal"
+        />
+      </div>
 
-    <!-- Menu cards -->
-    <div class="container py-2" id="card-section">
-        <div class="row justify-content-center align-items-stretch g-2">
-            <div class="card-pet col-md-4">
-                <div
-                    class="bg-light rounded-3 shadow p-3 text-center h-30 w-100 d-flex flex-column justify-content-between">
-                    <img class="img-fluid mx-auto"
-                        src="{{ url_for('static', filename='images/icons/finding-pet.png') }}"
-                        alt="Trouver un nouvel ami" />
-                    <p class="mt-1 text-dark">
-                        Parmi tous ces regards, il y a peut-être celui qui changera votre
-                        vie. Parcourez nos compagnons à la recherche d’un foyer et trouvez
-                        votre futur ami.
-                    </p>
-                    <div class="px-3">
-                        <button class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5">
-                            Trouver un nouveau meilleur ami
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card-pet col-md-4">
-                <div
-                    class="bg-light rounded-3 shadow p-3 text-center h-30 w-100 d-flex flex-column justify-content-between">
-                    <img class="img-fluid mx-auto" src="{{ url_for('static', filename='images/icons/house-pet.png') }}"
-                        alt="Trouver un nouvel ami" />
-                    <p class="mt-1 text-dark">
-                        Parmi tous ces regards, il y a peut-être celui qui changera votre
-                        vie. Parcourez nos compagnons à la recherche d’un foyer et trouvez
-                        votre futur ami.
-                    </p>
-                    <div class="px-3">
-                        <button class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5">
-                            Trouver une nouvelle maison
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card-pet col-md-4">
-                <div
-                    class="bg-light rounded-3 shadow p-3 text-center h-30 w-100 d-flex flex-column justify-content-between">
-                    <img class="img-fluid mx-auto"
-                        src="{{ url_for('static', filename='images/icons/medical-team.png') }}"
-                        alt="Trouver un nouvel ami" />
-                    <p class="mt-1 text-dark">
-                        Parmi tous ces regards, il y a peut-être celui qui changera votre
-                        vie. Parcourez nos compagnons à la recherche d’un foyer et trouvez
-                        votre futur ami.
-                    </p>
-                    <div class="px-3">
-                        <button class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5">
-                            Avez-vous des questions?
-                        </button>
-                    </div>
-                </div>
-            </div>
+      <!-- Pet Card -->
+      <div
+        class="col-md-2 col-6 mt-2 bg-light d-flex flex-column p-0 pb-2 rounded-4 shadow"
+      >
+        <img
+          class="rounded-top-4 img-fluid"
+          src="{{ url_for('static', filename='images/cat-sleepy.jpeg') }}"
+          alt="Chat endormi"
+        />
+        <div class="bg-light d-flex flex-column px-2">
+          <div class="d-flex flex-column mt-1">
+            <p class="mb-0 fs-4 fw-bolder text-secondary">Henry XVI</p>
+            <p class="mt-0 mb-2 fs-6 fw-light text-muted">Tigré type of cat</p>
+          </div>
+          <div class="icon-descr-pet d-flex flex-row gap-1 mb-1">
+            <img
+              class="img-fluid text-dark"
+              src="{{ url_for('static', filename='images/icons/calendar.png') }}"
+              alt="Âge d'animal"
+            />
+            <p class="text-dark">Age de l'animal</p>
+          </div>
+          <div class="icon-descr-pet d-flex flex-row gap-1">
+            <img
+              class="img-fluid"
+              src="{{ url_for('static', filename='images/icons/location-pet.png') }}"
+              alt="Localisation"
+            />
+            <p class="text-dark">Montréal</p>
+          </div>
         </div>
+      </div>
+
+      <!-- Other Columns -->
+      <div class="col-md-2 col-6">Column</div>
+      <div class="col-md-2 col-6">Column</div>
+      <div class="col-md-2 col-6">Column</div>
+
+      <!-- Right Arrow -->
+      <div class="pet-switch col-1 d-flex justify-content-center">
+        <img
+          src="{{ url_for('static', filename='images/icons/arrow-right.png') }}"
+          alt="Voir autre animal"
+        />
+      </div>
     </div>
-    <!-- Pet selector section -->
-    <div class="container-fluid px-3 w-100">
-        <div class=" row align-items-center justify-content-center py-5 gx-3 ">
-            <!-- Left Arrow -->
-            <div class="pet-switch col-1 d-flex justify-content-center">
-                <img src="{{ url_for('static', filename='images/icons/arrow-left.png') }}" alt="Voir autre animal">
-            </div>
-
-            <!-- Pet Card -->
-            <div class="col-md-2 col-6 mt-2 bg-light d-flex flex-column p-0 pb-2 rounded-4 shadow">
-                <img class="rounded-top-4 img-fluid" src="{{ url_for('static', filename='images/cat-sleepy.jpeg') }}"
-                    alt="Chat endormi">
-                <div class="bg-light d-flex flex-column px-2">
-                    <div class="d-flex flex-column mt-1">
-                        <p class="mb-0 fs-4 fw-bolder text-secondary">Henry XVI</p>
-                        <p class="mt-0 mb-2 fs-6 fw-light text-muted">Tigré type of cat</p>
-                    </div>
-                    <div class="icon-descr-pet d-flex flex-row gap-1 mb-1">
-                        <img class="img-fluid text-dark"
-                            src="{{ url_for('static', filename='images/icons/calendar.png') }}" alt="Âge d'animal">
-                        <p class="text-dark">Age de l'animal</p>
-                    </div>
-                    <div class="icon-descr-pet d-flex flex-row gap-1">
-                        <img class="img-fluid " src="{{ url_for('static', filename='images/icons/location-pet.png') }}"
-                            alt="Localisation">
-                        <p class="text-dark">Montréal</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Other Columns -->
-            <div class="col-md-2 col-6">Column</div>
-            <div class="col-md-2 col-6">Column</div>
-            <div class="col-md-2 col-6">Column</div>
-
-            <!-- Right Arrow -->
-            <div class="pet-switch col-1 d-flex justify-content-center">
-                <img src="{{ url_for('static', filename='images/icons/arrow-right.png') }}" alt="Voir autre animal">
-            </div>
-        </div>
-    </div>
-
-
+  </div>
 </div>
 {% endblock %}
