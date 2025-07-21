@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "nom": "Fluffy",
+    "espece": "Mouton",
+    "race": "Dorper",
+    "age": 2,
+    "description": "Mouton Dorpor plutôt jeune. Pas pour l'élevage, car provient d'une famille végane.",
+    "courriel": "mouton@noteleveur.ca",
+    "adresse": "47 rang du Nord",
+    "ville": "Victoriaville",
+    "cp": "H3E 3K4"
+  },
+  {
+    "id": 2,
+    "nom": "Dragon",
+    "espece": "Chien",
+    "race": "Chihuahua",
+    "age": 5,
+    "description": "Petit chien docile.",
+    "courriel": "steve@hotmail.com",
+    "adresse": "255 chemin du Loup",
+    "ville": "Drummondville",
+    "cp": "J3R 4I3"
+  },
+  {
+    "id": 3,
+    "nom": "Perdita",
+    "espece": "Chien",
+    "race": "Dalmatien",
+    "age": 12,
+    "description": "Mère de plusieurs portées. Recherche une famille calme pour sa retraite.",
+    "courriel": "cruella@disney.com",
+    "adresse": "34 rue de LaSalle",
+    "ville": "Montréal",
+    "cp": "H3E 4R5"
+  },
+  {
+    "id": 4,
+    "nom": "Skippy",
+    "espece": "Kangourou",
+    "race": "Inconnu",
+    "age": 7,
+    "description": "Ancien acteur d'une série télé.",
+    "courriel": "kangourou@animalcrossing.com",
+    "adresse": "4848 de la chance",
+    "ville": "St-Hilaire",
+    "cp": "J4P 9U4"
+  },
+  {
+    "id": 5,
+    "nom": "Madame Long Cou",
+    "espece": "Escargot",
+    "race": "Inconnu",
+    "age": 1,
+    "description": "Escargot de jardin ayant eu une belle vie.",
+    "courriel": "snail@snailmail.com",
+    "adresse": "33 de la Noix",
+    "ville": "Montréal",
+    "cp": "H3R 3J4"
+  },
+  {
+    "id": 6,
+    "nom": "Serpent Haut",
+    "espece": "Serpent",
+    "race": "Boa",
+    "age": 3,
+    "description": "Serpent boa retrouvé au pavillon SH de l'UQAM.",
+    "courriel": "serpent@uqam.ca",
+    "adresse": "CP8888 Succ Centre-ville",
+    "ville": "Montréal",
+    "cp": "H3B 3C3"
+  },
+  {
+    "id": 7,
+    "nom": "Mojo",
+    "espece": "Chien",
+    "race": "Pug",
+    "age": 8,
+    "description": "Vieux chien bien calme qui aime les promenades au parc.",
+    "courriel": "cedric@hotmail.com",
+    "adresse": "4744 Marquette",
+    "ville": "Contrecoeur",
+    "cp": "J0L 1C0"
+  }
+]
