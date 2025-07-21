@@ -9,4 +9,14 @@ $theme-colors: (
   "muted": #7d8893,
 );
 
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer,
+  2: $spacer * 2,
+  3: $spacer * 3,
+  4: $spacer * 4,
+  5: $spacer * 5,
+);
+
 @import "../../node_modules/bootstrap/scss/bootstrap";

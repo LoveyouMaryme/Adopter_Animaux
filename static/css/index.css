@@ -2,11 +2,15 @@
   width: 4rem;
 }
 
-img:not(#gif) {
+nav img {
   width: 2rem;
   height: 2rem;
 }
 
 #background-website {
   background-color: #e0ecf5;
+}
+
+#card-section img {
+  max-width: 4rem;
 }
