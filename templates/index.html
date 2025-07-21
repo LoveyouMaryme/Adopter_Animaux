@@ -83,7 +83,7 @@
   <!-- Menu cards -->
   <div class="container py-2" id="card-section">
     <div class="row d-flex justify-content-center align-items-stretch g-2">
-      {% for card in card_index %}
+      {% for card in cards %}
       <div class="col-md-4">
         <div
           class="bg-light rounded-3 shadow p-3 text-center h-100 w-100 d-flex flex-column justify-content-between"
@@ -106,7 +106,7 @@
   </div>
   <!-- Pet selector section -->
   <div class="container-fluid px-3 w-100">
-    <div class="row align-items-center justify-content-center py-5 gx-3">
+    <div class="row align-items-center justify-content-center py-5 g-3">
       <!-- Left Arrow -->
       <div class="pet-switch col-1 d-flex justify-content-center">
         <img
@@ -116,18 +116,19 @@
       </div>
 
       <!-- Pet Card -->
+      {% for pet in carousel %}
       <div
         class="col-md-2 col-6 mt-2 bg-light d-flex flex-column p-0 pb-2 rounded-4 shadow"
       >
         <img
           class="rounded-top-4 img-fluid"
-          src="{{ url_for('static', filename='images/cat-sleepy.jpeg') }}"
-          alt="Chat endormi"
+          src="{{ url_for('static', filename='images/ ~ pet.espece ~ .jpeg') }}"
+          alt="Image de {{pet.espece}}"
         />
         <div class="bg-light d-flex flex-column px-2">
           <div class="d-flex flex-column mt-1">
-            <p class="mb-0 fs-4 fw-bolder text-secondary">Henry XVI</p>
-            <p class="mt-0 mb-2 fs-6 fw-light text-muted">Tigré type of cat</p>
+            <p class="mb-0 fs-4 fw-bolder text-secondary">{{pet.nom}}</p>
+            <p class="mt-0 mb-2 fs-6 fw-light text-muted">{{pet.espece}}</p>
           </div>
           <div class="icon-descr-pet d-flex flex-row gap-1 mb-1">
             <img
@@ -135,7 +136,7 @@
               src="{{ url_for('static', filename='images/icons/calendar.png') }}"
               alt="Âge d'animal"
             />
-            <p class="text-dark">Age de l'animal</p>
+            <p class="text-dark">{{pet.age}}</p>
           </div>
           <div class="icon-descr-pet d-flex flex-row gap-1">
             <img
@@ -143,15 +144,12 @@
               src="{{ url_for('static', filename='images/icons/location-pet.png') }}"
               alt="Localisation"
             />
-            <p class="text-dark">Montréal</p>
+            <p class="text-dark">{{pet.ville}}</p>
           </div>
         </div>
       </div>
 
-      <!-- Other Columns -->
-      <div class="col-md-2 col-6">Column</div>
-      <div class="col-md-2 col-6">Column</div>
-      <div class="col-md-2 col-6">Column</div>
+      {% endfor %}
 
       <!-- Right Arrow -->
       <div class="pet-switch col-1 d-flex justify-content-center">

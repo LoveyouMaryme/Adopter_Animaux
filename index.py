@@ -16,6 +16,8 @@ from flask import Flask
 from flask import render_template
 from flask import g
 from .database import Database
+from .utils.card_data import card_index_dict
+from .utils import helpers
 
 app = Flask(__name__, static_url_path="", static_folder="static")
 
@@ -37,47 +39,27 @@ def close_connection(exception):
 
 @app.route('/')
 def index():
+    
+    
 
-    card_index_dict = card_index = [
-        {
-        "image_link" : "images/icons/finding-pet.png",
-        "text" :  """Parmi tous ces regards, 
-        il y a peut-être celui qui changera votre vie. 
-        Parcourez nos compagnons à la recherche d’un foyer 
-        et trouvez votre futur ami.""",
-        "text_button" : "Trouvez votre ami"
-    },
-    {
-        "image_link" : "images/icons/house-pet.png",
-        "text" :  """Votre compagnon mérite un foyer aimant.
-             Mettez-le en adoption dès aujourd’hui
-            et permettez à une famille de le rencontrer.""",
-        "text_button" : "Trouvez une maison"
-    },
-    {
-        "image_link" : "images/icons/team.png",
-        "text" :  """Rencontrez les humains au grand cœur qui veillent sur chaque compagnon.
-        Découvrez notre mission, nos valeurs, et les visages de ceux qui rendent tout cela possible.""",
-        "text_button" : "Rencontrez-nous"
-    }
-    ]
     animaux_dict = get_db()
-    print(animaux_dict.get_animaux())
-    return render_template('index.html', card_index=card_index_dict)
+    carousel = helpers.get_animals_carousel(animaux_dict)
+    print(carousel)
+    return render_template('index.html', cards=card_index_dict, carousel=carousel)
 
 
 
 class Animal: 
     def __init__(self, id, nom, espece, race, age, description, courriel, adresse, ville, cp):
-        self.id = identifier,
-        self.nom = nom,
-        self.espece = espece,
-        self.race = race,
-        self.age = age,
-        self.description = description,
-        self.courriel = courriel,
-        self.adresse = adresse,
-        self.ville = ville,
+        self.id = id
+        self.nom = nom
+        self.espece = espece
+        self.race = race
+        self.age = age
+        self.description = description
+        self.courriel = courriel
+        self.adresse = adresse
+        self.ville = ville
         self.cp = cp
     
     # def __str__(self):
