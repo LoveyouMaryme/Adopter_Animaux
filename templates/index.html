@@ -82,11 +82,11 @@
 
   <!-- Menu cards -->
   <div class="container py-2" id="card-section">
-    <div class="row justify-content-center align-items-stretch g-2">
+    <div class="row d-flex justify-content-center align-items-stretch g-2">
       {% for card in card_index %}
-      <div class="card-pet col-md-4">
+      <div class="col-md-4">
         <div
-          class="bg-light rounded-3 shadow p-3 text-center h-30 w-100 d-flex flex-column justify-content-between"
+          class="bg-light rounded-3 shadow p-3 text-center h-100 w-100 d-flex flex-column justify-content-between"
         >
           <img
             class="img-fluid mx-auto"
@@ -94,7 +94,7 @@
             alt="{{card.text_button}}"
           />
           <p class="mt-1 text-dark">{{card.text}}</p>
-          <div class="px-3">
+          <div class="px-3 d-flex justify-content-center">
             <button class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5">
               {{card.text_button}}
             </button>

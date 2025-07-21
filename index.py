@@ -57,10 +57,36 @@ def index():
     {
         "image_link" : "images/icons/team.png",
         "text" :  """Rencontrez les humains au grand cœur qui veillent sur chaque compagnon.
-Découvrez notre mission, nos valeurs, et les visages de ceux qui rendent tout cela possible.""",
+        Découvrez notre mission, nos valeurs, et les visages de ceux qui rendent tout cela possible.""",
         "text_button" : "Rencontrez-nous"
     }
     ]
-    animaux_db = get_db()
-    print(animaux_db.get_animaux())
+    animaux_dict = get_db()
+    print(animaux_dict.get_animaux())
     return render_template('index.html', card_index=card_index_dict)
+
+
+
+class Animal: 
+    def __init__(self, id, nom, espece, race, age, description, courriel, adresse, ville, cp):
+        self.id = identifier,
+        self.nom = nom,
+        self.espece = espece,
+        self.race = race,
+        self.age = age,
+        self.description = description,
+        self.courriel = courriel,
+        self.adresse = adresse,
+        self.ville = ville,
+        self.cp = cp
+    
+    # def __str__(self):
+    #      card_pet_dict_element = {
+        
+    #     }
+
+    #     return  card_pet_dict_element
+    
+
+
+    
