@@ -80,33 +80,9 @@
     </div>
   </div>
 
-  <!-- Menu cards -->
-  <div class="container py-2" id="card-section">
-    <div class="row d-flex justify-content-center align-items-stretch g-2">
-      {% for card in cards %}
-      <div class="col-md-4">
-        <div
-          class="bg-light rounded-3 shadow p-3 text-center h-100 w-100 d-flex flex-column justify-content-between"
-        >
-          <img
-            class="img-fluid mx-auto"
-            src="{{ url_for('static', filename=card.image_link) }}"
-            alt="{{card.text_button}}"
-          />
-          <p class="mt-1 text-dark">{{card.text}}</p>
-          <div class="px-3 d-flex justify-content-center">
-            <button class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5">
-              {{card.text_button}}
-            </button>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
   <!-- Pet selector section -->
   <div class="container-fluid px-3 w-100">
-    <div class="row align-items-center justify-content-center py-5 g-3">
+    <div class="row align-items-center justify-content-center py-5 gap-1">
       <!-- Left Arrow -->
       <div class="pet-switch col-1 d-flex justify-content-center">
         <img
@@ -122,7 +98,7 @@
       >
         <img
           class="rounded-top-4 img-fluid"
-          src="{{ url_for('static', filename='images/ ~ pet.espece ~ .jpeg') }}"
+          src="{{ url_for('static', filename='images/cat-sleepy.jpeg') }}"
           alt="Image de {{pet.espece}}"
         />
         <div class="bg-light d-flex flex-column px-2">
@@ -158,6 +134,31 @@
           alt="Voir autre animal"
         />
       </div>
+    </div>
+  </div>
+
+  <!-- Menu cards -->
+  <div class="container py-2" id="card-section">
+    <div class="row d-flex justify-content-center align-items-stretch g-2">
+      {% for card in cards %}
+      <div class="col-md-4">
+        <div
+          class="bg-light rounded-3 shadow p-3 text-center h-100 w-100 d-flex flex-column justify-content-between"
+        >
+          <img
+            class="img-fluid mx-auto"
+            src="{{ url_for('static', filename=card.image_link) }}"
+            alt="{{card.text_button}}"
+          />
+          <p class="mt-1 text-dark">{{card.text}}</p>
+          <div class="px-3 d-flex justify-content-center">
+            <button class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5">
+              {{card.text_button}}
+            </button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </div>
 </div>
