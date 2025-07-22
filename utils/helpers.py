@@ -22,7 +22,7 @@ def get_animals_carousel(db):
     picked_animals = []
 
     
-    while num_picked < 4:
+    while num_picked < 5:
         animal = list_animaux[num_carousel]
         picked_animals.append(animal)
   
