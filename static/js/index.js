@@ -6,4 +6,6 @@ rightChangeElement = changePetElement[1];
 
 console.log(leftChangeElement);
 
-leftChangeElement.addEventListener("click", () => {});
+leftChangeElement.addEventListener("click", () => {
+  carousel;
+});
