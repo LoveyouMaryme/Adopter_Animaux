@@ -1,0 +1,11 @@
+#nav-pets,
+#nav-pets .nav-item {
+  height: 8vh;
+}
+
+.numberPet {
+}
+
+.no-animal {
+  height: 50vh;
+}

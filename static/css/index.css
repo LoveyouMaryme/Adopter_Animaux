@@ -1,20 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
-#gif {
-  width: 4rem;
-}
-
-nav img {
-  width: 2rem;
-  height: 2rem;
-}
-
-#background-website {
-  background-color: #e0ecf5;
-}
-
 #card-section img {
   max-width: 4rem;
 }
@@ -33,4 +16,9 @@ nav img {
   .name-pet {
     font-size: 2rem;
   }
+}
+
+#card-section,
+#pet-section {
+  height: 60vh;
 }

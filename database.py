@@ -51,6 +51,17 @@ class Database:
         cursor.execute(query)
         all_data = cursor.fetchall()
         return [_build_animal(item) for item in all_data]
+    
+    def get_race(self, animal_race):
+        cursor = self.get_connection().cursor()
+        query = ("select id, nom, espece, race, age, description, "
+                 "courriel, adresse, ville, cp from animaux where lower(espece) = ?" )
+        cursor.execute(query, (animal_race,))
+        all_data = cursor.fetchall()
+        if all_data is None:
+            return all_data
+        else:
+            return [_build_animal(item) for item in all_data]
 
     def get_animal(self, animal_id):
         cursor = self.get_connection().cursor()

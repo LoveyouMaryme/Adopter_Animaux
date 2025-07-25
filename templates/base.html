@@ -17,17 +17,72 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/bootstrap.custom.css') }}"
     />
-    {% block css_file %}
+
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/default.css') }}"
+      href="{{ url_for('static', filename='css/base.css') }}"
     />
+    
+    {% block css_file %}
+    
+    
     {% endblock %}
     <title>{% block title %}{% endblock %}</title>
   </head>
 
   <body>
-    {% block content %}{% endblock %}
+        <div class="bg-primary" id="background-website">
+  <!-- Top image -->
+  <div class="container-fluid">
+    <img
+      id="gif"
+      src="{{ url_for('static', filename='images/icons/gif/cat.gif') }}"
+      alt="Gif de chat"
+    />
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-light px-5 bg-between-p-s">
+    <div class="container-fluid">
+      <a href="{{ url_for('index')}}" class="navbar-brand">
+        <img
+          src="{{ url_for('static', filename='images/icons/house-pet.png') }}"
+          alt="Maison"
+          class="d-inline-block align-text-top"
+        />
+        <span>Patte<br />d'accueil</span>
+      </a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div
+        class="collapse navbar-collapse justify-content-center"
+        id="navbarNavAltMarkup"
+      >
+        <div class="navbar-nav d-flex flex-row justify-content-center gap-5">
+          <a href="{{url_for('page_adoption')}}" class="nav-link"
+            >Rencontre ton BFF</a
+          >
+          <a href="#" class="nav-link">Reloger un animal</a>
+          <a href="#" class="nav-link">Jasons !</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+    
+    {% block content %}
+
+    {% endblock %}
 
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
     {% block scripts %}{% endblock %}

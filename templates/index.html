@@ -3,56 +3,11 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/index.css') }}"
 />
+
 {% endblock %} {% block title %}Document{% endblock %} {% block content %}
 <div class="bg-primary" id="background-website">
-  <!-- Top image -->
-  <div class="container-fluid">
-    <img
-      id="gif"
-      src="{{ url_for('static', filename='images/icons/gif/cat.gif') }}"
-      alt="Gif de chat"
-    />
-  </div>
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-light px-5 bg-between-p-s">
-    <div class="container-fluid">
-      <a href="#" class="navbar-brand">
-        <img
-          src="{{ url_for('static', filename='images/icons/house-pet.png') }}"
-          alt="Maison"
-          class="d-inline-block align-text-top"
-        />
-        <span>Patte<br />d'accueil</span>
-      </a>
-
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div
-        class="collapse navbar-collapse justify-content-center"
-        id="navbarNavAltMarkup"
-      >
-        <div class="navbar-nav d-flex flex-row justify-content-center gap-5">
-          <a href="#" class="nav-link">Rencontre ton BFF</a>
-          <a href="#" class="nav-link">Reloger un animal</a>
-          <a href="#" class="nav-link">Jasons !</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
   <!-- Hero section -->
-  <div class="container py-5">
+  <div class="container py-5 mb-5" id="hero">
     <div class="row">
       <div
         class="col-md-6 d-flex flex-column justify-content-center align-items-center px-md-3"
@@ -79,7 +34,7 @@
   </div>
 
   <!-- Cards section -->
-  <div class="container py-2" id="card-section">
+  <div class="container py-2 h-100" id="card-section">
     <div class="row d-flex justify-content-center align-items-stretch g-2">
       {% for card in cards %}
       <div class="col-md-4">
@@ -104,7 +59,7 @@
   </div>
 
   <!-- Pet carousel section -->
-  <div class="container-fluid px-3 w-100">
+  <div class="container-fluid px-3 w-100 mt-5 id=pet-section">
     <div class="row align-items-center justify-content-center py-5">
       <!-- Left Arrow -->
       <div class="col-auto d-flex justify-content-center">
@@ -179,8 +134,7 @@
       </div>
     </div>
   </div>
-
-  {% endblock %} {% block scripts %}
-  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-  {% endblock %}
 </div>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}

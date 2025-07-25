@@ -81,10 +81,37 @@ def get_next_animal_carousel():
     session['carousel'] = carousel
     session['recently_shown'] = recently_shown_ids
     
-    
-
 
     return carousel
+
+
+@app.route("/adoption")
+def page_adoption():
+
+
+    animaux_db = get_db()
+    animaux_une_race = animaux_db.get_race("chat")
+    nb_animaux_by_race = len(animaux_une_race)
+
+    print(nb_animaux_by_race)
+
+    return render_template("page_adoption.html", pets=animaux_une_race, nbr=nb_animaux_by_race, race='chat')
+
+
+
+@app.route("/adoption/<animal_type>")
+def page_adoption_by_race(animal_type):
+
+    animaux_db = get_db()
+    animaux_une_race = animaux_db.get_race(animal_type)
+    print(animaux_une_race)
+    nb_animaux_by_race = len(animaux_une_race)
+    print(nb_animaux_by_race)
+
+
+
+    
+    return render_template(f"adoption_{animal_type}.html", pets=animaux_une_race, nbr=nb_animaux_by_race, race=animal_type)
 
     
     

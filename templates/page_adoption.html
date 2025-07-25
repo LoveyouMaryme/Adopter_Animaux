@@ -1,0 +1,126 @@
+{% extends 'base.html' %} {% block css_file %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/page_adoption.css') }}"
+/>
+{% endblock %} {% block title %}Adoption {{race}} {% endblock %} {% block
+content %}
+<div class="bg-primary" id="background-website">
+  <!-- Hero section -->
+  <div id="hero" class="container-fluid p-0 mt-3 overflow-hidden">
+    <img
+      src="{{ url_for('static', filename='images/baby-cutie-cat-awww.jpg') }}"
+      class="img-fluid w-100 object-fit-cover"
+      alt="bébé chat"
+    />
+  </div>
+
+  <!-- Second Nav Section -->
+
+  <ul
+    id="nav-pets"
+    class="nav bg-secondary nav-fill mt-2 d-flex flex-row align-content-center fs-5 fw-b"
+  >
+    <li class="nav-item align-content-center">
+      <a
+        class="nav-link h-75 align-content-center"
+        href="{{ url_for('page_adoption_by_race', animal_type='chat')}}"
+        >Chat</a
+      >
+    </li>
+    <li class="nav-item align-content-center">
+      <a
+        class="nav-link text-light"
+        href="{{ url_for('page_adoption_by_race', animal_type='chien')}}"
+        >Chien</a
+      >
+    </li>
+    <li class="nav-item align-content-center">
+      <a
+        class="nav-link text-light"
+        href="{{ url_for('page_adoption_by_race', animal_type='rongeur')}}"
+        >Rongeur</a
+      >
+    </li>
+    <li class="nav-item align-content-center">
+      <a
+        class="nav-link text-light"
+        href="{{ url_for('page_adoption_by_race', animal_type='autre')}}"
+        >Wtf that's not a pet</a
+      >
+    </li>
+  </ul>
+
+  <!-- Number of pets -->
+
+  <div class="numberPet fs-1 ps-5 mt-5 mb-3">
+    {% if nbr > 0 %}
+    <span class="text-secondary">{{ nbr }}</span> {{race}}<span>s</span>
+    {% else %}
+    <span class="text-secondary">{{ nbr }}</span> {{race}} {% endif %}
+  </div>
+
+  <!-- Pet Cards -->
+  {% if pets %}
+  <div class="container">
+    <div class="row justify-content-center align-items-center g-2">
+      <div class="col">
+        <div
+          id="carousel-cards"
+          class="row g-2 justify-content-center align-content-stretch d-flex"
+        >
+          {% for pet in pets %}
+          <div
+            class="col-12 col-sm-6 col-lg-4 col-xl-2 d-flex flex-lg-column justify-content-center"
+          >
+            <div
+              class="pet-card bg-light d-flex flex-column w-100 h-100 p-0 pb-2 rounded-4 shadow"
+            >
+              <img
+                class="rounded-top-4 img-fluid"
+                src="{{ url_for('static', filename='images/cat-sleepy.jpeg') }}"
+                alt="Image de {{ pet.espece }}"
+              />
+              <div class="bg-light d-flex flex-column px-2">
+                <div class="d-flex flex-column mt-1">
+                  <p class="name-pet mb-0 fs-4 fs- fw-bolder text-secondary">
+                    {{ pet.nom }}
+                  </p>
+                  <p class="mt-0 mb-2 fs-6 fw-light text-muted">
+                    {{ pet.espece }}
+                  </p>
+                </div>
+                <div class="icon-descr-pet d-flex flex-row gap-1 mb-1">
+                  <img
+                    class="img-fluid"
+                    src="{{ url_for('static', filename='images/icons/calendar.png') }}"
+                    alt="Âge d'animal"
+                  />
+                  <p class="text-dark">{{ pet.age }}</p>
+                </div>
+                <div class="icon-descr-pet d-flex flex-row gap-1">
+                  <img
+                    class="img-fluid"
+                    src="{{ url_for('static', filename='images/icons/location-pet.png') }}"
+                    alt="Localisation"
+                  />
+                  <p class="text-dark">{{ pet.ville }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %} {% else %}
+      <div class="no-animal">
+        <p class="fs-4 text-center text-muted">
+          Aucun animal à adopter pour le moment.
+        </p>
+      </div>
+      {% endif %}{% endblock %} {% block scripts %}
+      <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+      {% endblock %}
+    </div>
+  </div>
+</div>

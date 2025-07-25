@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+#gif {
+  width: 2rem;
+}
+
+#hero img {
+  height: 60vh;
+}
+
+nav img {
+  width: 2rem;
+  height: 2rem;
+}
+
+#background-website {
+  background-color: #e0ecf5;
+}
