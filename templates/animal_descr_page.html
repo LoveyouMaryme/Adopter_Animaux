@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block css_file %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/animal_descr_page.css') }}"
+/>
+{% endblock %} {% block content %}
+<div
+  class="container-fluid bg-primary min-vh-100 d-flex align-items-center justify-content-center"
+>
+  <div class="card p-4 rounded" style="max-width: 800px; width: 100%">
+    <div class="row g-4 align-items-center">
+      <!-- Image -->
+      <div class="col-md-5">
+        <img
+          src="{{ url_for('static', filename='images/photo_animaux/' ~ fiche_animal.picture) }}"
+          class="img-fluid rounded-3"
+          alt="Photo de {{ fiche_animal.nom }}"
+        />
+      </div>
+
+      <!-- Info -->
+      <div class="col-md-7">
+        <h2 class="fw-bold text-secondary mb-2">{{ fiche_animal.nom }}</h2>
+        <p class="mb-1"><strong>Espèce :</strong> {{ fiche_animal.espece }}</p>
+        <p class="mb-1"><strong>Race :</strong> {{ fiche_animal.race }}</p>
+        <p class="mb-1"><strong>Âge :</strong> {{ fiche_animal.age }} ans</p>
+        <p class="mb-3">
+          <strong>Description :</strong><br />{{ fiche_animal.description }}
+        </p>
+
+        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary mt-2">
+          Retour voir les autres amis
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,218 @@
+{% extends 'base.html' %} {% block css_file %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/formulaire-adoption.css')}}"
+/>
+{% endblock %} {% block content %}
+<div class="form-and-descr container-md">
+  <div class="row">
+    <!-- Formulaire -->
+    <div class="left-side-form col bg-light p-3 mt-3 mb-3 rounded">
+      <form
+        action="{{url_for('register_animal')}}"
+        method="POST"
+        enctype="multipart/form-data"
+        class="form-adoption d-flex flex-column align-content-center needs-validation"
+        id="form"
+        novalidate
+      >
+        <!-- Nom, âge, photo -->
+        <div class="row g-3 align-items-end">
+          <div class="col">
+            <label for="petNameInput" class="form-label">Nom de l'animal</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              id="petNameInput"
+              placeholder="Nom de l'animal"
+              required
+            />
+            <div class="invalid-feedback custom-feedback">
+              Nom entre 3 et 20 charactères
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+
+          <div class="col">
+            <label for="petAgeInput" class="form-label">Âge de l'animal</label>
+            <div class="input-group">
+              <input
+                name="age"
+                type="number"
+                class="form-control"
+                id="petAgeInput"
+                required
+              />
+              <span class="input-group-text"> ans </span>
+            </div>
+            <div class="invalid-feedback custom-feedback">
+              Âge entre 0 et 20 ans
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+
+          <div class="col">
+            <label for="formFile" class="form-label"
+              >Photo de l'adorable animal</label
+            >
+            <input
+              name="photo"
+              class="form-control"
+              type="file"
+              id="petFileInput"
+              required
+            />
+            <div class="invalid-feedback custom-feedback">
+              Il faut mettre une photo
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+        </div>
+
+        <!-- Race -->
+        <div class="row">
+          <div class="col">
+            <label for="petRaceInput" class="form-label"
+              >Race de l'animal</label
+            >
+            <input
+              name="race"
+              type="text"
+              class="form-control"
+              id="petRaceInput"
+              required
+            />
+            <div class="invalid-feedback custom-feedback">
+              Ce champ est requis.
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+        </div>
+
+        <!-- Espèce -->
+        <div class="row">
+          <div class="col">
+            <label for="petEspeceInput" class="form-label"
+              >Espèce de l'animal</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="petEspeceInput"
+              name="espece"
+              required
+            />
+            <div class="invalid-feedback custom-feedback">
+              Ce champ n'est pas valide.
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+        </div>
+
+        <!-- Description-->
+        <div class="row">
+          <div class="col">
+            <label for="petDescrInput" class="form-label"
+              >Description de l'animal</label
+            >
+            <textarea
+              name="description"
+              class="form-control"
+              id="petDescrInput"
+              rows="3"
+              placeholder="Écrivez une brève description de l'animal que vous souhaitez mettre en adoption, sans virgule"
+              required
+            ></textarea>
+            <div class="invalid-feedback custom-feedback">
+              Ce champ n'est pas valide.
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+        </div>
+
+        <!-- Courriel -->
+        <div class="row">
+          <div class="col">
+            <label for="ownerEmailInput" class="form-label"
+              >Email du donneur</label
+            >
+            <input
+              name="email"
+              type="text"
+              class="form-control"
+              id="ownerEmailInput"
+              placeholder="exemple@courriel.com"
+              required
+            />
+            <div class="invalid-feedback custom-feedback">
+              Ce champ n'est pas valide.
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+        </div>
+
+        <!-- Adresse civique complète -->
+        <div class="row">
+          <div class="col">
+            <label for="streetInput" class="form-label">Adresse civique</label>
+            <input
+              name="address"
+              type="text"
+              class="form-control"
+              id="streetInput"
+              placeholder="1234 rue Exemple"
+              required
+            />
+            <div class="invalid-feedback custom-feedback">
+              Ce champ est requis.
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+
+          <div class="col">
+            <label for="cityInput" class="form-label">Ville</label>
+            <input
+              name="city"
+              type="text"
+              class="form-control"
+              id="cityInput"
+              placeholder="Montréal"
+              required
+            />
+            <div class="invalid-feedback custom-feedback">
+              Ce champ est requis.
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+
+          <div class="col">
+            <label for="postalCodeInput" class="form-label">Code postal</label>
+            <input
+              name="cp"
+              type="text"
+              class="form-control"
+              id="postalCodeInput"
+              placeholder="H2X 1Y4"
+              required
+            />
+            <div class="invalid-feedback custom-feedback">
+              Code postal invalide (ex: H2X 1Y4)
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="mt-4">
+          <button type="submit" class="btn btn-secondary">
+            On s'occupe d'eux
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script src="{{url_for('static', filename='js/formulaire_adoption.js')}}"></script>
+{% endblock %}

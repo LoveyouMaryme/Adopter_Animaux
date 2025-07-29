@@ -28,6 +28,7 @@ def _build_animal(result_set_item):
     animal["adresse"] = result_set_item[7]
     animal["ville"] = result_set_item[8]
     animal["cp"] = result_set_item[9]
+    animal["picture"] = result_set_item[10]
     return animal
 
 
@@ -47,7 +48,7 @@ class Database:
     def get_animaux(self):
         cursor = self.get_connection().cursor()
         query = ("select id, nom, espece, race, age, description, "
-                 "courriel, adresse, ville, cp from animaux")
+                 "courriel, adresse, ville, cp, picture from animaux")
         cursor.execute(query)
         all_data = cursor.fetchall()
         return [_build_animal(item) for item in all_data]
@@ -55,8 +56,32 @@ class Database:
     def get_race(self, animal_race):
         cursor = self.get_connection().cursor()
         query = ("select id, nom, espece, race, age, description, "
-                 "courriel, adresse, ville, cp from animaux where lower(espece) = ?" )
+                 "courriel, adresse, ville, cp, picture from animaux where lower(espece) = ?" )
         cursor.execute(query, (animal_race,))
+        all_data = cursor.fetchall()
+        if all_data is None:
+            return all_data
+        else:
+            return [_build_animal(item) for item in all_data]
+        
+    def get_last_animal(self):
+        cursor = self.get_connection().cursor()
+        query = ("select  id, nom, espece, race, age, description, courriel, "
+                 "adresse, ville, cp, picture from animaux order by id desc limit 1")
+        cursor.execute(query)
+        item = cursor.fetchone()
+        if item is None:
+            return item
+        else:
+            return _build_animal(item)
+        
+
+    def get_uncommon(self):
+        cursor = self.get_connection().cursor()
+        query = ("select id, nom, espece, race, age, description, "
+                 "courriel, adresse, ville, cp, picture from animaux "
+                 "where lower(espece) NOT IN (?, ?, ?, ?, ?)")
+        cursor.execute(query, ("chat", "chien", "rat", "souris", "hamster"))
         all_data = cursor.fetchall()
         if all_data is None:
             return all_data
@@ -66,7 +91,7 @@ class Database:
     def get_animal(self, animal_id):
         cursor = self.get_connection().cursor()
         query = ("select id, nom, espece, race, age, description, courriel, "
-                 "adresse, ville, cp from animaux where id = ?")
+                 "adresse, ville, cp, picture from animaux where id = ?")
         cursor.execute(query, (animal_id,))
         item = cursor.fetchone()
         if item is None:
@@ -75,13 +100,13 @@ class Database:
             return _build_animal(item)
 
     def add_animal(self, nom, espece, race, age, description, courriel,
-                   adresse, ville, cp):
+                   adresse, ville, cp, picture):
         connection = self.get_connection()
         query = ("insert into animaux(nom, espece, race, age, description, "
-                 "courriel, adresse, ville, cp) "
-                 "values(?, ?, ?, ?, ?, ?, ?, ?, ?)")
+                 "courriel, adresse, ville, cp, picture) "
+                 "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
         connection.execute(query, (nom, espece, race, age, description,
-                                   courriel, adresse, ville, cp))
+                                   courriel, adresse, ville, cp, picture))
         cursor = connection.cursor()
         cursor.execute("select last_insert_rowid()")
         lastId = cursor.fetchone()[0]

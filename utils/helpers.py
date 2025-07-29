@@ -6,6 +6,8 @@ from ..utils.card_data import card_index_dict
 import math
 import random
 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
 def shuffle_animaux(db):
     list_animaux = db.get_animaux()
     random_list_animaux = random.sample(list_animaux, len(list_animaux))
@@ -33,7 +35,9 @@ def history_picked_animals(picked_animals):
     return animal_id
 
 
-
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
         
 

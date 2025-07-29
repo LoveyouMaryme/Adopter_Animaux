@@ -1,0 +1,13 @@
+/* S'assure que tous les messages de validation ont un espace réservé */
+.custom-feedback {
+  display: block;
+  min-height: 1.5rem;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  visibility: hidden;
+}
+
+.is-invalid + .invalid-feedback,
+.is-valid + .valid-feedback {
+  visibility: visible;
+}

@@ -22,6 +22,8 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/base.css') }}"
     />
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     
     {% block css_file %}
     
@@ -31,7 +33,7 @@
   </head>
 
   <body>
-        <div class="bg-primary" id="background-website">
+  <div class="bg-primary" id="background-website">
   <!-- Top image -->
   <div class="container-fluid">
     <img
@@ -73,7 +75,7 @@
           <a href="{{url_for('page_adoption')}}" class="nav-link"
             >Rencontre ton BFF</a
           >
-          <a href="#" class="nav-link">Reloger un animal</a>
+          <a href="{{url_for('page_reloger')}}" class="nav-link">Reloger un animal</a>
           <a href="#" class="nav-link">Jasons !</a>
         </div>
       </div>
