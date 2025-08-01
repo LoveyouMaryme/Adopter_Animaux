@@ -48,9 +48,13 @@
           />
           <p class="mt-1 text-dark">{{ card.text }}</p>
           <div class="px-3 d-flex justify-content-center">
-            <button class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5">
-              {{ card.text_button }}
-            </button>
+            <a
+              href="{{ url_for(card.href)}}"
+              class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5"
+              role="button"
+            >
+              {{ card.text_button }}</a
+            >
           </div>
         </div>
       </div>

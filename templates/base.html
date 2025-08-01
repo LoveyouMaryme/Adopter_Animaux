@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
@@ -17,74 +19,107 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/bootstrap.custom.css') }}"
     />
-
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/base.css') }}"
     />
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    
-    {% block css_file %}
-    
-    
-    {% endblock %}
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+
+    {% block css_file %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
   </head>
 
   <body>
-  <div class="bg-primary" id="background-website">
-  <!-- Top image -->
-  <div class="container-fluid">
-    <img
-      id="gif"
-      src="{{ url_for('static', filename='images/icons/gif/cat.gif') }}"
-      alt="Gif de chat"
-    />
-  </div>
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-light px-5 bg-between-p-s">
-    <div class="container-fluid">
-      <a href="{{ url_for('index')}}" class="navbar-brand">
+    <div class="bg-primary background" id="background-website">
+      <div class="container-fluid">
         <img
-          src="{{ url_for('static', filename='images/icons/house-pet.png') }}"
-          alt="Maison"
-          class="d-inline-block align-text-top"
+          id="gif"
+          src="{{ url_for('static', filename='images/icons/gif/cat.gif') }}"
+          alt="Gif de chat"
         />
-        <span>Patte<br />d'accueil</span>
-      </a>
-
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div
-        class="collapse navbar-collapse justify-content-center"
-        id="navbarNavAltMarkup"
-      >
-        <div class="navbar-nav d-flex flex-row justify-content-center gap-5">
-          <a href="{{url_for('page_adoption')}}" class="nav-link"
-            >Rencontre ton BFF</a
-          >
-          <a href="{{url_for('page_reloger')}}" class="nav-link">Reloger un animal</a>
-          <a href="#" class="nav-link">Jasons !</a>
-        </div>
       </div>
-    </div>
-  </nav>
-    
-    {% block content %}
 
-    {% endblock %}
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg bg-light px-5 bg-between-p-s">
+        <div class="container-fluid">
+          <a href="{{ url_for('index') }}" class="navbar-brand">
+            <img
+              src="{{ url_for('static', filename='images/icons/house-pet.png') }}"
+              alt="Maison"
+              class="d-inline-block align-text-top"
+            />
+            <span>Patte<br />d'accueil</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            class="collapse navbar-collapse justify-content-center"
+            id="navbarNav"
+          >
+            <ul class="navbar-nav d-flex flex-row justify-content-center gap-5">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Rencontre ton BFF
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('page_adoption') }}"
+                    >
+                      Voir tous les amis
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('page_recherche_avance')}}"
+                    >
+                      Recherche avancée
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ url_for('page_reloger') }}" class="nav-link"
+                  >Reloger un animal</a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="{{ url_for('page_contact') }}" class="nav-link"
+                  >Jasons !</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      {% block content %} {% endblock %}
+    </div>
 
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
     {% block scripts %}{% endblock %}

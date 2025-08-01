@@ -24,6 +24,7 @@ from .database import Database
 from .utils.card_data import card_index_dict
 from .utils import helpers
 import os
+from flask import jsonify
 
 # Thank you : https://flask.palletsprojects.com/en/stable/patterns/fileuploads/
 
@@ -102,7 +103,7 @@ def page_adoption():
 
 
     animaux_db = get_db()
-    animaux_une_race = animaux_db.get_race("chat")
+    animaux_une_race = animaux_db.get_espece("chat")
     nb_animaux_by_race = len(animaux_une_race)
 
     print(nb_animaux_by_race)
@@ -115,7 +116,7 @@ def page_adoption():
 def page_adoption_by_race(animal_type):
 
     animaux_db = get_db()
-    animaux_une_race = animaux_db.get_race(animal_type)
+    animaux_une_race = animaux_db.get_espece(animal_type)
     print(animaux_une_race)
     nb_animaux_by_race = len(animaux_une_race)
     print(nb_animaux_by_race)
@@ -148,6 +149,52 @@ def page_descr_animal(pet_id):
     print("testing pet")
     print(pet)
     return render_template(f"animal_descr_page.html", fiche_animal = pet)
+
+@app.route("/contactez_nous")
+def page_contact():
+    return render_template("contactez_nous.html")
+
+@app.route("/recherche_avance")
+def page_recherche_avance():
+    animaux_db = get_db()
+    five_common_espece = animaux_db.get_five_most_common_espece()
+    list_espece = [espece[0] for espece in five_common_espece]
+    print(list_espece)
+    return render_template("recherche_avance.html", especes=list_espece)
+
+
+@app.route("/api/races", methods=["GET"])
+def get_races_per_espece():
+    especes = request.args.getlist('especes')
+    print(especes)
+    animaux_db = get_db()
+    five_common_race = animaux_db.get_five_most_common_race(especes)
+    return jsonify(five_common_race)
+
+    
+@app.route("/api/results", methods=['GET'])
+def get_results():
+    especes = request.args.getlist('especes')
+    races = request.args.getlist('races')
+    results = []
+    animaux_db = get_db()
+
+    if(especes or races):
+        results = animaux_db.get_result_research(especes, races)
+    print(results)
+    return jsonify(results)
+
+@app.route("/api/results_searchbar", methods=['GET'])
+def get_results_from_searchbar():
+    animaux_db = get_db()
+    filters = request.args.getlist('filters')
+    print(filters)
+
+
+    results = animaux_db.get_data_everywhere(filters)
+    return jsonify(results)
+
+
 
 
 @app.route('/register_animal', methods=['POST'])
@@ -189,6 +236,7 @@ def register_animal():
 
                     lastAnimalId = animal_db.get_last_animal()['id']
                 return redirect(url_for('page_descr_animal', pet_id=lastAnimalId))
+            
             except Exception as e:
                 print(f"there's an error {e}")
                 return render_template('error_page.html')

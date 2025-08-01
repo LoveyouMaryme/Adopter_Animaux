@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block css_file %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/contact.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <h2 class="mb-4">Contactez-nous</h2>
+      <p class="lead">
+        Une question, un souci ou envie d'en savoir plus sur l'adoption?
+      </p>
+      <p class="fs-5 mt-4">
+        <strong>Téléphone</strong> :
+        <a href="tel:5145551234" class="text-decoration-none">(514) 555-1234</a
+        ><br />
+        <strong>Courriel</strong> :
+        <a href="mailto:contact@pattedaccueil.ca" class="text-decoration-none"
+          >contact@pattedaccueil.ca</a
+        >
+      </p>
+      <p class="mt-4 text-muted">
+        Nous sommes disponibles du lundi au vendredi de 9h à 9h30.
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

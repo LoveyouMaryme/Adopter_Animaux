@@ -1,0 +1,10 @@
+html,
+body,
+.bg-primary {
+  height: 100vh;
+}
+
+/* I KNOW IM NOT SUPPOSED TO BUT IM TIRED */
+.container {
+  padding-top: 10rem !important;
+}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block css_file %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/recherche.css') }}"
+/>
+
+{% endblock %} {% block content %}
+
+<div class="container p-3 my-5 shadow rounded bg-white">
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Rechercher un animal par nom, espèce, race..."
+      id="searchBar"
+      name="barre de recherche"
+    />
+    <span class="input-group-text"
+      ><i class="bi bi-search" id="search-button"></i
+    ></span>
+  </div>
+
+  <!--  Espece -->
+  <div class="mb-3">
+    <strong class="mb-2 d-block"
+      >Filtrer par espèce (les plus populaires) :</strong
+    >
+    <div class="d-flex flex-wrap gap-2">
+      <button
+        type="button"
+        class="btn btn-outline-secondary rounded-pill button_espece"
+      >
+        Tous
+      </button>
+      {% for espece in especes %}
+      <button
+        type="button"
+        class="btn btn-outline-secondary rounded-pill button_espece"
+      >
+        {{ espece }}
+      </button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Race -->
+  <div class="mb-3">
+    <strong class="mb-2 d-block"
+      >Filtrer par race (les plus populaires) :</strong
+    >
+    <div class="d-flex flex-wrap gap-2" id="container-button-race">
+      <button
+        type="button"
+        class="btn btn-outline-primary rounded-pill button-race"
+      >
+        Tous
+      </button>
+    </div>
+  </div>
+
+  <hr />
+  <div class="mt-3">
+    <p><strong>Résultats :</strong></p>
+    <ul class="list-unstyled" id="container-results">
+      <li><strong>Biscuit</strong> <span class="text-muted">— Persan</span></li>
+    </ul>
+  </div>
+</div>
+
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/recherche.js') }}"></script>
+{% endblock %}
