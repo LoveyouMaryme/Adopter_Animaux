@@ -33,38 +33,12 @@
     </div>
   </div>
 
-  <!-- Cards section -->
-  <div class="container py-2 h-100" id="card-section">
-    <div class="row d-flex justify-content-center align-items-stretch g-2">
-      {% for card in cards %}
-      <div class="col-md-4">
-        <div
-          class="bg-light rounded-3 shadow p-3 text-center h-100 w-100 d-flex flex-column justify-content-between"
-        >
-          <img
-            class="img-fluid mx-auto"
-            src="{{ url_for('static', filename=card.image_link) }}"
-            alt="{{ card.text_button }}"
-          />
-          <p class="mt-1 text-dark">{{ card.text }}</p>
-          <div class="px-3 d-flex justify-content-center">
-            <a
-              href="{{ url_for(card.href)}}"
-              class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5"
-              role="button"
-            >
-              {{ card.text_button }}</a
-            >
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-
   <!-- Pet carousel section -->
-  <div class="container-fluid px-3 w-100 mt-5 id=pet-section">
-    <div class="row align-items-center justify-content-center py-5">
+  <div
+    class="container-fluid px-3 mb-5 w-100 align-content-center"
+    id="pet-section"
+  >
+    <div class="row align-items-center justify-content-center">
       <!-- Left Arrow -->
       <div class="col-auto d-flex justify-content-center">
         <div class="pet-switch">
@@ -80,7 +54,7 @@
       <div class="col">
         <div
           id="carousel-cards"
-          class="row g-2 justify-content-center align-content-stretch d-flex"
+          class="row g-1 justify-content-center align-content-stretch d-flex"
         >
           {% for pet in carousel %}
           <div
@@ -138,6 +112,90 @@
       </div>
     </div>
   </div>
+
+  <!-- Cards section -->
+  <div class="container mb-5 py-5 align-content-end" id="card-section">
+    <div class="row d-flex justify-content-center align-items-stretch g-2">
+      {% for card in cards %}
+      <div class="col-md-4">
+        <div
+          class="bg-light rounded-3 shadow p-3 text-center h-100 w-100 d-flex flex-column justify-content-between"
+        >
+          <img
+            class="img-fluid mx-auto"
+            src="{{ url_for('static', filename=card.image_link) }}"
+            alt="{{ card.text_button }}"
+          />
+          <p class="mt-1 text-dark">{{ card.text }}</p>
+          <div class="px-3 d-flex justify-content-center">
+            <a
+              href="{{ url_for(card.href)}}"
+              class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5"
+              role="button"
+            >
+              {{ card.text_button }}</a
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-5">
+    <div class="container justify-content-center">
+      <div class="row justify-content-center text-center">
+        <div class="col-md-4 mb-3">
+          <h5>About Us</h5>
+          <p>
+            Nous aimons les chats et c'est triste qu'il en ait aucun dans la
+            database initiale
+          </p>
+        </div>
+        <div class="col-md-4 mb-3 justify-items-center">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li>
+              <a
+                href="{{ url_for('page_adoption') }}"
+                class="text-decoration-none text-white"
+                >Adoption</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('page_reloger') }}"
+                class="text-decoration-none text-white"
+                >Reloger</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('page_contact') }}"
+                class="text-decoration-none text-white"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Follow Us</h5>
+          <ul class="list-inline social-icons">
+            <li class="list-inline-item">
+              <a href="#" class="text-white"><i class="bi bi-twitter"></i></a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" class="text-white"><i class="bi bi-twitter"></i></a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>
 {% endblock %} {% block scripts %}
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
