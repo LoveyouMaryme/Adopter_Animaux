@@ -1,41 +1,30 @@
 const inputs = document.getElementsByClassName("form-control");
-const form = document.getElementById("form");
+// const form = document.getElementById("form");
 
 const nomAnimal = document.getElementById("petNameInput");
+const address = document.getElementById("streetInput");
+const codePostal = document.getElementById("postalCodeInput");
 const ageAnimal = document.getElementById("petAgeInput");
-const codePostalInput = document.getElementById("postalCodeInput");
-const pictureAnimal = document.getElementById("petFileInput");
+const city = document.getElementById("cityInput");
 
-console.log(pictureAnimal);
-
-// Boucle qui assigne un listener à chaque champ
-Array.from(inputs).forEach((input) => {
-  input.addEventListener("input", () => {
-    if (input.id === "petNameInput") {
-      checkNameCharacters(input);
-    } else if (input.id === "petAgeInput") {
-      checkAge(input);
-    } else if (input.id === "postalCodeInput") {
-      checkPostalCode(input);
-    } else if (input.id === "petFileInput") {
-      checkPicture(input);
-    } else {
-      checkVirgule(input);
-    }
-
-    input.id;
-  });
-});
-
-pictureAnimal.addEventListener("click", () => {
-  console.log("clicked");
-  checkPicture(pictureAnimal);
-});
+// console.log(pictureAnimal);
 
 function checkNameCharacters(input) {
   const value = input.value.trim();
 
   if (value.length >= 3 && value.length <= 20 && !value.includes(",")) {
+    input.classList.add("is-valid");
+    input.classList.remove("is-invalid");
+  } else {
+    input.classList.add("is-invalid");
+    input.classList.remove("is-valid");
+  }
+}
+
+function checkEmpty(input) {
+  const value = input.value.trim();
+
+  if (value !== "") {
     input.classList.add("is-valid");
     input.classList.remove("is-invalid");
   } else {
@@ -56,48 +45,67 @@ function checkAge(input) {
   }
 }
 
-function checkVirgule(input) {
-  const value = input.value.trim();
-
-  if (value !== "" && !value.includes(",")) {
-    input.classList.add("is-valid");
-    input.classList.remove("is-invalid");
-  } else {
-    input.classList.add("is-invalid");
-    input.classList.remove("is-valid");
-  }
-}
-
 function checkPostalCode(input) {
   const value = input.value.trim().toUpperCase();
   const regex = /^[A-Z]\d[A-Z][ ]?\d[A-Z]\d$/;
 
+  input.classList.remove("is-valid", "is-invalid");
+
   if (regex.test(value)) {
     input.classList.add("is-valid");
-    input.classList.remove("is-invalid");
   } else {
     input.classList.add("is-invalid");
-    input.classList.remove("is-valid");
   }
 }
 
-function checkPicture(input) {
-  if (input.files.length > 0) {
-    console.log("valid");
+function checkAddressName(input) {
+  const value = input.value.trim().toUpperCase();
+  const regex = /^[0-9]+\s+[A-ZÀ-Ö' -]+$/;
+
+  input.classList.remove("is-valid", "is-invalid");
+  input.setCustomValidity("");
+
+  if (regex.test(value)) {
     input.classList.add("is-valid");
-    input.classList.remove("is-invalid");
   } else {
-    console.log("invalid");
     input.classList.add("is-invalid");
-    input.classList.remove("is-valid");
   }
 }
 
-form.addEventListener("submit", function (event) {
-  if (!form.checkValidity()) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
+function checkCity(input) {
+  const value = input.value.trim().toUpperCase();
+  const regex = /^[A-ZÀ-Ö' -]+$/;
 
-  form.classList.add("was-validated");
+  input.classList.remove("is-valid", "is-invalid");
+  input.setCustomValidity("");
+
+  if (regex.test(value)) {
+    input.classList.add("is-valid");
+  } else {
+    input.classList.add("is-invalid");
+  }
+}
+var forms = document.getElementsByClassName("needs-validation");
+// Loop over them and prevent submission
+var validation = Array.prototype.filter.call(forms, function (form) {
+  form.addEventListener(
+    "submit",
+    function (event) {
+      Array.from(inputs).forEach((input) => {
+        checkEmpty(input);
+      });
+
+      checkAge(ageAnimal);
+      checkNameCharacters(nomAnimal);
+      checkPostalCode(codePostal);
+      checkAddressName(address);
+      checkCity(city);
+
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    },
+    false
+  );
 });

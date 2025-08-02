@@ -11,7 +11,6 @@
       <form
         action="{{url_for('register_animal')}}"
         method="POST"
-        enctype="multipart/form-data"
         class="form-adoption d-flex flex-column align-content-center needs-validation"
         id="form"
         novalidate
@@ -26,6 +25,8 @@
               class="form-control"
               id="petNameInput"
               placeholder="Nom de l'animal"
+              minlength="3"
+              maxlength="20"
               required
             />
             <div class="invalid-feedback custom-feedback">
@@ -42,6 +43,8 @@
                 type="number"
                 class="form-control"
                 id="petAgeInput"
+                min="0"
+                max="20"
                 required
               />
               <span class="input-group-text"> ans </span>
@@ -104,7 +107,7 @@
               class="form-control"
               id="petDescrInput"
               rows="3"
-              placeholder="Écrivez une brève description de l'animal que vous souhaitez mettre en adoption, sans virgule"
+              placeholder="Écrivez une brève description de l'animal que vous souhaitez mettre en adoption"
               required
             ></textarea>
             <div class="invalid-feedback custom-feedback">
@@ -122,10 +125,11 @@
             >
             <input
               name="email"
-              type="text"
+              type="email"
               class="form-control"
               id="ownerEmailInput"
               placeholder="exemple@courriel.com"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               required
             />
             <div class="invalid-feedback custom-feedback">
@@ -137,6 +141,7 @@
 
         <!-- Adresse civique complète -->
         <div class="row">
+          <div class="input-group"></div>
           <div class="col">
             <label for="streetInput" class="form-label">Adresse civique</label>
             <input
@@ -150,7 +155,6 @@
             <div class="invalid-feedback custom-feedback">
               Ce champ est requis.
             </div>
-            <div class="valid-feedback custom-feedback">Bien :D .</div>
           </div>
 
           <div class="col">
@@ -176,18 +180,18 @@
               type="text"
               class="form-control"
               id="postalCodeInput"
-              placeholder="H2X 1Y4"
+              placeholder="H2X 1Y4 or H2X1Y4"
               required
             />
             <div class="invalid-feedback custom-feedback">
-              Code postal invalide (ex: H2X 1Y4)
+              Code postal invalide
             </div>
             <div class="valid-feedback custom-feedback">Bien :D .</div>
           </div>
         </div>
 
         <!-- Submit -->
-        <div class="mt-4">
+        <div class="mt-4 mx-auto">
           <button type="submit" class="btn btn-secondary">
             On s'occupe d'eux
           </button>
