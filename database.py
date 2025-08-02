@@ -46,16 +46,23 @@ class Database:
 
     def get_animaux(self):
         cursor = self.get_connection().cursor()
-        query = ("select id, nom, espece, race, age, description, "
-                 "courriel, adresse, ville, cp from animaux")
+        query = ("""
+                select
+                id, nom, espece, race, age, description,
+                courriel, adresse, ville, cp
+                from animaux""")
         cursor.execute(query)
         all_data = cursor.fetchall()
         return [_build_animal(item) for item in all_data]
     
     def get_espece(self, animal_espece):
         cursor = self.get_connection().cursor()
-        query = ("select id, nom, espece, race, age, description, "
-                 "courriel, adresse, ville, cp from animaux where lower(espece) = ?" )
+        query = ("""
+                select
+                id, nom, espece, race, age, description,
+                courriel, adresse, ville, cp
+                from animaux
+                where lower(espece) = ?""")
         cursor.execute(query, (animal_espece,))
         all_data = cursor.fetchall()
         if all_data is None:
@@ -65,8 +72,13 @@ class Database:
         
     def get_last_animal(self):
         cursor = self.get_connection().cursor()
-        query = ("select  id, nom, espece, race, age, description, courriel, "
-                 "adresse, ville, cp from animaux order by id desc limit 1")
+        query = ("""
+                select
+                id, nom, espece, race, age, description, courriel,
+                adresse, ville, cp
+                from animaux
+                order by id desc
+                limit 1""")
         cursor.execute(query)
         item = cursor.fetchone()
         if item is None:
@@ -74,17 +86,16 @@ class Database:
         else:
             return _build_animal(item)
         
-
     def get_five_most_common_espece(self):
         cursor = self.get_connection().cursor()
-        query = ("""SELECT espece 
+        query = ("""SELECT espece
                     FROM (
-                        SELECT espece, COUNT(*) AS cnt 
-                        FROM animaux 
+                        SELECT espece, COUNT(*) AS cnt
+                        FROM animaux
                         GROUP BY espece
                     ) AS subquery
-                    ORDER BY cnt DESC 
-                    LIMIT 5;""" )
+                    ORDER BY cnt DESC
+                    LIMIT 5;""")
 
         cursor.execute(query)
         all_data = cursor.fetchall()
@@ -95,100 +106,78 @@ class Database:
 
         placeholders = ','.join(['?'] * len(especes))
 
-        if( '*' in especes):
-            query = (f"""SELECT race 
+        if ('*' in especes):
+            query = (f"""SELECT race
                     FROM (
-                        SELECT race, espece, COUNT(*) AS cnt 
+                        SELECT race, espece, COUNT(*) AS cnt
                         FROM animaux
                         GROUP BY race, espece
                     ) AS subquery
                     ORDER BY cnt DESC
-                    LIMIT 5""" )
+                    LIMIT 5""")
             cursor.execute(query)
         else:
-            query = (f"""SELECT race 
+            query = (f"""SELECT race
                     FROM (
-                        SELECT race, espece, COUNT(*) AS cnt 
+                        SELECT race, espece, COUNT(*) AS cnt
                         FROM animaux
                         WHERE lower(espece) IN ({placeholders})
                         GROUP BY race, espece
                     ) AS subquery
                     ORDER BY cnt DESC
-                    LIMIT 5""" )
+                    LIMIT 5""")
 
             especesList = [espece for espece in especes]
             cursor.execute(query, especesList)
         all_data = cursor.fetchall()
         return all_data
 
-
     def get_result_research(self, especes, races):
         cursor = self.get_connection().cursor()
 
-        print("this is race")
-        print(races)
-
         where_clauses = []
         parameters = []
-
-    
-        if("*" not in especes and especes):
-            placeholders_espece = ','.join(['?'] * len(especes)) if especes else ''
-            where_clauses.append(f"lower(espece) IN ({placeholders_espece})")
+        if ("*" not in especes and especes):
+            placeholder_esp = ','.join(['?'] * len(especes)) if especes else ''
+            where_clauses.append(f"lower(espece) IN ({placeholder_esp})")
             parameters.extend(especes)
-
-        if("*" not in races and races):
-            placeholders_race = ','.join(['?'] * len(races)) if especes else ''
-            where_clauses.append(f"lower(race) IN ({placeholders_race})")
+        if ("*" not in races and races):
+            placeholder_race = ','.join(['?'] * len(races)) if especes else ''
+            where_clauses.append(f"lower(race) IN ({placeholder_race})")
             parameters.extend(races)
-
         where_statement = ""
-        if where_clauses and len(where_clauses )>= 1:
+        if where_clauses and len(where_clauses) >= 1:
             where_statement = "WHERE " + " AND ".join(where_clauses)
         else:
-            where_statement= "WHERE ".join(where_clauses)
-
-        print("this is where statement") 
-        print(where_clauses)
-
+            where_statement = "WHERE ".join(where_clauses)
         query = f"""
             SELECT nom, espece, race, ville
             FROM animaux
             {where_statement};
         """
-
-
         cursor.execute(query, parameters)
         all_data = cursor.fetchall()
         return all_data
     
-
     def get_data_everywhere(self, filters):
         cursor = self.get_connection().cursor()
-
         columns = ['nom', 'espece', 'race', 'description']
         clauses = []
-        params  = []
-        
+        params = []
         for f in filters:
             filter = f"%{f.lower()}%"
-  
             for col in columns:
                 clauses.append(f"lower({col}) LIKE ?")
                 params.append(filter)
-
-
         where_sql = " OR ".join(clauses)
         query = f"""
             SELECT nom, espece, race, ville
             FROM animaux
          WHERE {where_sql}
             """
-        
         cursor.execute(query, params)
         all_data = cursor.fetchall()
         return all_data
-
 
     def get_uncommon(self):
         cursor = self.get_connection().cursor()
