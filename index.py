@@ -23,7 +23,7 @@ from werkzeug.utils import secure_filename
 from .database import Database
 from .utils.card_data import card_index_dict
 from .utils import helpers
-import os
+import re
 from flask import jsonify
 
 # Thank you : https://flask.palletsprojects.com/en/stable/patterns/fileuploads/
@@ -199,55 +199,58 @@ def get_results_from_searchbar():
 
 @app.route('/register_animal', methods=['POST'])
 def register_animal():
-        
-        if request.method == 'POST':
 
-            # Do I have my file?
-            if 'photo' not in request.files:
-                flash('No file part')
-                return redirect('error_page_html')
-            
-            file = request.files['photo']
+    email_rx   = r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
+    cp_rx      = r'^[A-Z]\d[A-Z]\s?\d[A-Z]\d$'
+    address_rx = r'^[0-9]+\s+[A-Za-zÀ-Ö\' -]+$'
+    city_rx    = r'^[A-Za-zÀ-Ö\' -]+$'
 
-        if file and helpers.allowed_file(file.filename):
-            try:
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-                animal_db = get_db()
-                petName = request.form.get('name')
-                petAge = request.form.get('age')
-                petPhoto = filename
-                petRace = request.form.get('race')
-                petEspece = request.form.get('espece')
-                petDescription = request.form.get('description')
-                ownerEmail = request.form.get('email')
-                ownerAddress = request.form.get('address')
-                ownerCity = request.form.get('city')
-                ownerCp = request.form.get('cp')
-
-                information_list = [petName, petAge, petPhoto, petRace, petEspece, petDescription, ownerEmail, ownerAddress, ownerCity, ownerCp]
-
-                # Did I get all my pet data ?
-                if any(information is None for information in information_list):
-                    return render_template('error_page.html')
-                else:
-                    animal_db.add_animal(petName, petEspece, petRace, petAge, petDescription, ownerEmail, ownerAddress, ownerCity, ownerCp, petPhoto)
-
-                    lastAnimalId = animal_db.get_last_animal()['id']
-                return redirect(url_for('page_descr_animal', pet_id=lastAnimalId))
-            
-            except Exception as e:
-                print(f"there's an error {e}")
-                return render_template('error_page.html')
-
-            
-
+    try:
+        animal_db = get_db()
+        petName = request.form.get('name')
+        petAge = int(request.form.get('age'))
+        petRace = request.form.get('race')
+        petEspece = request.form.get('espece')
+        petDescription = request.form.get('description')
+        ownerEmail = request.form.get('email')
+        ownerAddress = request.form.get('address')
+        ownerCity = request.form.get('city')
+        ownerCp = request.form.get('cp')
     
 
+        information_list = [petName, petAge, petRace, petEspece, petDescription, ownerEmail, ownerAddress, ownerCity, ownerCp]
 
+        # Did I get all my pet data ?
+        if any(information is None for information in information_list):
+            return redirect(url_for('error_page.html'))
+        
+        # Verification back-end
+        valid = (
+            petAge >= 0 and petAge <=20 and
+            len(petName) >= 3 and len(petName) <= 20 and
+            re.fullmatch(email_rx, ownerEmail) and
+            re.fullmatch(cp_rx, ownerCp) and
+            re.fullmatch(address_rx, ownerAddress) and
+            re.fullmatch(city_rx, ownerCity)
 
-#         return redirect( url_for('page_descr_animal'))
+        )
+
+        if not valid:
+            return redirect(url_for('error_page.html'))
+        
+    
+        print("is it after")
+        animal_db.add_animal(petName, petEspece, petRace, petAge, petDescription, ownerEmail, ownerAddress, ownerCity, ownerCp)
+        print("is it before")
+
+        lastAnimalId = animal_db.get_last_animal()['id']
+        return redirect(url_for('page_descr_animal', pet_id=lastAnimalId))
+    
+    except Exception as e:
+        print(f"there's an error {e}")
+        return redirect(url_for('error_page.html'))
+
+            
 
 
 

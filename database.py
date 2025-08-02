@@ -218,7 +218,7 @@ class Database:
         connection = self.get_connection()
         query = ("insert into animaux(nom, espece, race, age, description, "
                  "courriel, adresse, ville, cp) "
-                 "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+                 "values(?, ?, ?, ?, ?, ?, ?, ?, ?)")
         connection.execute(query, (nom, espece, race, age, description,
                                    courriel, adresse, ville, cp))
         cursor = connection.cursor()
