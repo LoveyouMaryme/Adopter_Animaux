@@ -219,7 +219,7 @@ def register_animal():
 
         # Est-ce que j'ai reçu toutes les données de mon formulaire?
         if any(information is None for information in information_list):
-            return redirect(url_for('error_page.html'))
+            return redirect(url_for('error_page'))
         # Les vérifications des règles business
         valid = (
             pet_age >= 0 and pet_age <= 20 and
@@ -230,7 +230,7 @@ def register_animal():
             re.fullmatch(CITY_RX, owner_city)
         )
         if not valid:
-            return redirect(url_for('error_page.html'))
+            return redirect(url_for('error_page'))
         ANIMAUX_DB.add_animal(
             pet_name,
             pet_espece,
@@ -245,4 +245,8 @@ def register_animal():
         return redirect(url_for('page_descr_animal', pet_id=last_animal_id))
     except Exception as e:
         print(f"there's an error {e}")
-        return redirect(url_for('error_page.html'))
+        return redirect(url_for('error_page'))
+
+@app.route('/error')
+def error_page():
+    return render_template('error_page.html')
