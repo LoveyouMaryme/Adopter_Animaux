@@ -196,7 +196,6 @@ def register_animal():
         owner_address = request.form.get('address')
         owner_city = request.form.get('city')
         owner_cp = request.form.get('cp')
-
         information_list = [
             pet_name,
             pet_age,
