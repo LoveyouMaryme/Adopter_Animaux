@@ -90,7 +90,6 @@ def get_next_animal_carousel():
         session['random_list_animaux'] = new_list_of_random_animals
     session['carousel'] = carousel
     session['recently_shown'] = recently_shown_ids
-
     return carousel
 
 
@@ -98,7 +97,6 @@ def get_next_animal_carousel():
 def page_adoption():
     animaux_une_race = ANIMAUX_DB.get_espece("chat")
     nb_animaux_by_race = len(animaux_une_race)
-
     return render_template(
         "page_adoption.html",
         pets=animaux_une_race,
@@ -108,10 +106,7 @@ def page_adoption():
 @app.route("/adoption/<animal_type>")
 def page_adoption_by_race(animal_type):
     animaux_une_race = ANIMAUX_DB.get_espece(animal_type)
-    print(animaux_une_race)
     nb_animaux_by_race = len(animaux_une_race)
-    print(nb_animaux_by_race)
-
     return render_template(
         f"adoption_{animal_type}.html",
         pets=animaux_une_race,
@@ -122,9 +117,7 @@ def page_adoption_by_race(animal_type):
 @app.route("/adoption/autre")
 def page_adoption_autre():
     animaux_une_race = ANIMAUX_DB.get_uncommon()
-    print(animaux_une_race)
     nb_animaux_by_race = len(animaux_une_race)
-    print(nb_animaux_by_race)
     return render_template(
         f"adoption_autre.html",
         pets=animaux_une_race,
@@ -140,8 +133,6 @@ def page_reloger():
 @app.route("/animal_descr_page/<pet_id>")
 def page_descr_animal(pet_id):
     pet = ANIMAUX_DB.get_animal(pet_id)
-    print("testing pet")
-    print(pet)
     return render_template(
         f"animal_descr_page.html",
         fiche_animal=pet)
