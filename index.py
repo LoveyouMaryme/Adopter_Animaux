@@ -45,11 +45,11 @@ def close_connection(exception):
         db.disconnect()
 
 
-ANIMAUX_DB = get_db()
 
 
 @app.route('/')
 def index():
+    ANIMAUX_DB = get_db()
     random_list_animaux = helpers.shuffle_animaux(ANIMAUX_DB)
     carousel = helpers.get_animals_carousel(random_list_animaux)
     session['random_list_animaux'] = random_list_animaux
@@ -95,6 +95,7 @@ def get_next_animal_carousel():
 
 @app.route("/adoption")
 def page_adoption():
+    ANIMAUX_DB = get_db()
     animaux_une_race = ANIMAUX_DB.get_espece("chat")
     nb_animaux_by_race = len(animaux_une_race)
     return render_template(
@@ -105,6 +106,7 @@ def page_adoption():
 
 @app.route("/adoption/<animal_type>")
 def page_adoption_by_race(animal_type):
+    ANIMAUX_DB = get_db()
     animaux_une_race = ANIMAUX_DB.get_espece(animal_type)
     nb_animaux_by_race = len(animaux_une_race)
     return render_template(
@@ -116,6 +118,7 @@ def page_adoption_by_race(animal_type):
 
 @app.route("/adoption/autre")
 def page_adoption_autre():
+    ANIMAUX_DB = get_db()
     animaux_une_race = ANIMAUX_DB.get_uncommon()
     nb_animaux_by_race = len(animaux_une_race)
     return render_template(
@@ -132,6 +135,7 @@ def page_reloger():
 
 @app.route("/animal_descr_page/<pet_id>")
 def page_descr_animal(pet_id):
+    ANIMAUX_DB = get_db()
     pet = ANIMAUX_DB.get_animal(pet_id)
     return render_template(
         f"animal_descr_page.html",
@@ -145,6 +149,7 @@ def page_contact():
 
 @app.route("/recherche_avance")
 def page_recherche_avance():
+    ANIMAUX_DB = get_db()
     five_common_espece = ANIMAUX_DB.get_five_most_common_espece()
     list_espece = [espece[0] for espece in five_common_espece]
     print(list_espece)
@@ -155,6 +160,7 @@ def page_recherche_avance():
 
 @app.route("/api/races", methods=["GET"])
 def get_races_per_espece():
+    ANIMAUX_DB = get_db()
     especes = request.args.getlist('especes')
     five_common_race = ANIMAUX_DB.get_five_most_common_race(especes)
     return jsonify(five_common_race)
@@ -162,6 +168,7 @@ def get_races_per_espece():
 
 @app.route("/api/results", methods=['GET'])
 def get_results():
+    ANIMAUX_DB = get_db()
     especes = request.args.getlist('especes')
     races = request.args.getlist('races')
     results = []
@@ -173,6 +180,7 @@ def get_results():
 
 @app.route("/api/results_searchbar", methods=['GET'])
 def get_results_from_searchbar():
+    ANIMAUX_DB = get_db()
     filters = request.args.getlist('filters')
 
     results = ANIMAUX_DB.get_data_everywhere(filters)
@@ -181,6 +189,7 @@ def get_results_from_searchbar():
 
 @app.route('/register_animal', methods=['POST'])
 def register_animal():
+    ANIMAUX_DB = get_db()
     EMAIL_RX = r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
     CP_RX = r'^[A-Z]\d[A-Z]\s?\d[A-Z]\d$'
     ADDRESS_RX = r'^[0-9]+\s+[A-Za-zÀ-Ö\' -]+$'
