@@ -48,12 +48,21 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateCarousel = (animals) => {
-        carouselContainer.innerHTML = '';
-        animals.forEach(pet => {
-            const cardHTML = createAnimalCard(pet);
-            carouselContainer.insertAdjacentHTML('beforeend', cardHTML);
-        });
-    };
+    carouselContainer.innerHTML = '';
+    animals.forEach((pet, index) => {
+        const cardHTML = createAnimalCard(pet);
+        
+        carouselContainer.insertAdjacentHTML('beforeend', cardHTML);
+        
+        const newCard = carouselContainer.lastElementChild;
+        
+        newCard.classList.add('carousel-card-enter');
+        
+        setTimeout(() => {
+            newCard.classList.add('active');
+        }, index * 50); 
+    });
+};
 
     // Gestion de la flèche de droite
     arrowRight.addEventListener('click', async () => {
