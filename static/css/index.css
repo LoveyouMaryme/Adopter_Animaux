@@ -35,3 +35,14 @@ footer {
 .social-icons a {
   font-size: 1.25rem;
 }
+
+.carousel-card-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.carousel-card-enter.active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
