@@ -13,9 +13,6 @@ def shuffle_animaux(db):
 
 
 def get_animals_carousel(shuffle_animaux):
-    """
-    Picks 5 unique animals randomly from the list.
-    """
     picked_animals = shuffle_animaux[0: 5]
     return picked_animals
 
@@ -34,3 +31,12 @@ def history_picked_animals(picked_animals):
     for id in picked_animals:
         animal_id.append(id["id"])
     return animal_id
+
+
+def get_animals_carousel_from_index(animals_list, start_index):
+    carousel = []
+    num_animals = len(animals_list)
+    for i in range(5):
+        index = (start_index + i) % num_animals
+        carousel.append(animals_list[index])
+    return carousel
