@@ -198,5 +198,10 @@
   </footer>
 </div>
 {% endblock %} {% block scripts %}
+<script>
+    function urlForStatic(filename) {
+        return "{{ url_for('static', filename='') }}" + filename;
+    }
+</script>
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}

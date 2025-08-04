@@ -51,9 +51,12 @@ def close_connection(exception):
 def index():
     ANIMAUX_DB = get_db()
     random_list_animaux = helpers.shuffle_animaux(ANIMAUX_DB)
-    carousel = helpers.get_animals_carousel(random_list_animaux)
     session['random_list_animaux'] = random_list_animaux
-    session['carousel'] = carousel
+    session['current_index'] = 0
+    carousel = helpers.get_animals_carousel(random_list_animaux)
+    end_index = min(5, len(random_list_animaux))
+    carousel = random_list_animaux[0:end_index]
+    
     return render_template(
         'index.html',
         cards=card_index_dict,
@@ -61,36 +64,33 @@ def index():
     )
 
 
-@app.route('/api/get_animal_carousel')
+@app.route('/api/get_next_animal_carousel')
 def get_next_animal_carousel():
     ANIMAUX_DB = get_db()
     random_list_animaux = session.get('random_list_animaux', [])
-    carousel = session.get('carousel', [])
-    recently_shown_ids = []
-    if carousel:
-        removed_item = carousel.pop(0)
-        recently_shown_ids.append(removed_item["id"])
+    current_index = session.get('current_index', 0)
+    
+    current_index = (current_index + 1  ) % len(random_list_animaux)
+    
+    session['current_index'] = current_index
 
-    session['carousel'] = carousel
-    carousel_ids = [animal["id"] for animal in carousel]
+    carousel = helpers.get_animals_carousel_from_index(random_list_animaux, current_index)
 
-    available = [
-        animal["id"]
-        for animal in random_list_animaux
-        if (
-            animal["id"] not in recently_shown_ids and
-            animal["id"] not in carousel_ids)
-    ]
-    if available:
-        next_animal = ANIMAUX_DB.get_animal(available[0])
-        carousel.append(next_animal)
-    else:
-        shuffle = helpers.shuffle_animaux(ANIMAUX_DB)
-        new_list_of_random_animals = get_next_animal_carousel(shuffle)
-        session['random_list_animaux'] = new_list_of_random_animals
-    session['carousel'] = carousel
-    session['recently_shown'] = recently_shown_ids
-    return carousel
+    return jsonify(carousel)
+
+
+@app.route('/api/get_previous_animal_carousel')
+def get_previous_animal_carousel():
+    random_list_animaux = session.get('random_list_animaux', [])
+    current_index = session.get('current_index', 0)
+    
+    current_index = (current_index - 1 + len(random_list_animaux)) % len(random_list_animaux)
+
+    session['current_index'] = current_index
+
+    carousel = helpers.get_animals_carousel_from_index(random_list_animaux, current_index)
+
+    return jsonify(carousel)
 
 
 @app.route("/adoption")
