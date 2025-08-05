@@ -4,7 +4,9 @@
   href="{{ url_for('static', filename='css/recherche.css') }}"
 />
 
-{% endblock %} {% block content %}
+{% endblock %} 
+{% block title %}Recherche avancée{% endblock %}
+{% block content %}
 
 <div class="container p-3 my-5 shadow rounded bg-white">
   <div class="input-group mb-3">

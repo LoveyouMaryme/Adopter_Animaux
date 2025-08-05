@@ -28,11 +28,11 @@ from flask import jsonify
 
 
 app = Flask(__name__, static_url_path="", static_folder="static")
-app.config['SECRET_KEY'] = 'ourbigsecret'
+app.config["SECRET_KEY"] = "ourbigsecret"
 
 
 def get_db():
-    db = getattr(g, '_database', None)
+    db = getattr(g, "_database", None)
     if db is None:
         g._database = Database()
     return g._database
@@ -40,55 +40,56 @@ def get_db():
 
 @app.teardown_appcontext
 def close_connection(exception):
-    db = getattr(g, '_database', None)
+    db = getattr(g, "_database", None)
     if db is not None:
         db.disconnect()
 
 
-
-
-@app.route('/')
+@app.route("/")
 def index():
     ANIMAUX_DB = get_db()
     random_list_animaux = helpers.shuffle_animaux(ANIMAUX_DB)
-    session['random_list_animaux'] = random_list_animaux
-    session['current_index'] = 0
+    session["random_list_animaux"] = random_list_animaux
+    session["current_index"] = 0
     carousel = helpers.get_animals_carousel(random_list_animaux)
     end_index = min(5, len(random_list_animaux))
     carousel = random_list_animaux[0:end_index]
-    
-    return render_template(
-        'index.html',
-        cards=card_index_dict,
-        carousel=carousel
-    )
+
+    return render_template("index.html", cards=card_index_dict,
+                           carousel=carousel)
 
 
-@app.route('/api/get_next_animal_carousel')
+@app.route("/api/get_next_animal_carousel")
 def get_next_animal_carousel():
     ANIMAUX_DB = get_db()
-    random_list_animaux = session.get('random_list_animaux', [])
-    current_index = session.get('current_index', 0)
-    
-    current_index = (current_index + 1  ) % len(random_list_animaux)
-    
-    session['current_index'] = current_index
+    random_list_animaux = session.get("random_list_animaux", [])
+    current_index = session.get("current_index", 0)
 
-    carousel = helpers.get_animals_carousel_from_index(random_list_animaux, current_index)
+    current_index = (current_index + 1) % len(random_list_animaux)
+
+    session["current_index"] = current_index
+
+    carousel = helpers.get_animals_carousel_from_index(
+        random_list_animaux, current_index
+    )
 
     return jsonify(carousel)
 
 
-@app.route('/api/get_previous_animal_carousel')
+@app.route("/api/get_previous_animal_carousel")
 def get_previous_animal_carousel():
-    random_list_animaux = session.get('random_list_animaux', [])
-    current_index = session.get('current_index', 0)
-    
-    current_index = (current_index - 1 + len(random_list_animaux)) % len(random_list_animaux)
+    random_list_animaux = session.get("random_list_animaux", [])
+    current_index = session.get("current_index", 0)
 
-    session['current_index'] = current_index
+    current_index = (current_index - 1 + len(random_list_animaux)) % len(
+        random_list_animaux
+    )
 
-    carousel = helpers.get_animals_carousel_from_index(random_list_animaux, current_index)
+    session["current_index"] = current_index
+
+    carousel = helpers.get_animals_carousel_from_index(
+        random_list_animaux, current_index
+    )
 
     return jsonify(carousel)
 
@@ -99,9 +100,9 @@ def page_adoption():
     animaux_une_race = ANIMAUX_DB.get_espece("chat")
     nb_animaux_by_race = len(animaux_une_race)
     return render_template(
-        "page_adoption.html",
-        pets=animaux_une_race,
-        nbr=nb_animaux_by_race, race='chat')
+        "page_adoption.html", pets=animaux_une_race,
+        nbr=nb_animaux_by_race, race="chat"
+    )
 
 
 @app.route("/adoption/<animal_type>")
@@ -113,7 +114,8 @@ def page_adoption_by_race(animal_type):
         f"adoption_{animal_type}.html",
         pets=animaux_une_race,
         nbr=nb_animaux_by_race,
-        race=animal_type)
+        race=animal_type,
+    )
 
 
 @app.route("/adoption/autre")
@@ -125,7 +127,8 @@ def page_adoption_autre():
         f"adoption_autre.html",
         pets=animaux_une_race,
         nbr=nb_animaux_by_race,
-        race="autre")
+        race="autre",
+    )
 
 
 @app.route("/reloger_un_animal")
@@ -137,9 +140,7 @@ def page_reloger():
 def page_descr_animal(pet_id):
     ANIMAUX_DB = get_db()
     pet = ANIMAUX_DB.get_animal(pet_id)
-    return render_template(
-        f"animal_descr_page.html",
-        fiche_animal=pet)
+    return render_template(f"animal_descr_page.html", fiche_animal=pet)
 
 
 @app.route("/contactez_nous")
@@ -153,24 +154,22 @@ def page_recherche_avance():
     five_common_espece = ANIMAUX_DB.get_five_most_common_espece()
     list_espece = [espece[0] for espece in five_common_espece]
     print(list_espece)
-    return render_template(
-        "recherche_avance.html",
-        especes=list_espece)
+    return render_template("recherche_avance.html", especes=list_espece)
 
 
 @app.route("/api/races", methods=["GET"])
 def get_races_per_espece():
     ANIMAUX_DB = get_db()
-    especes = request.args.getlist('especes')
+    especes = request.args.getlist("especes")
     five_common_race = ANIMAUX_DB.get_five_most_common_race(especes)
     return jsonify(five_common_race)
 
 
-@app.route("/api/results", methods=['GET'])
+@app.route("/api/results", methods=["GET"])
 def get_results():
     ANIMAUX_DB = get_db()
-    especes = request.args.getlist('especes')
-    races = request.args.getlist('races')
+    especes = request.args.getlist("especes")
+    races = request.args.getlist("races")
     results = []
 
     if especes or races:
@@ -178,33 +177,33 @@ def get_results():
     return jsonify(results)
 
 
-@app.route("/api/results_searchbar", methods=['GET'])
+@app.route("/api/results_searchbar", methods=["GET"])
 def get_results_from_searchbar():
     ANIMAUX_DB = get_db()
-    filters = request.args.getlist('filters')
+    filters = request.args.getlist("filters")
 
     results = ANIMAUX_DB.get_data_everywhere(filters)
     return jsonify(results)
 
 
-@app.route('/register_animal', methods=['POST'])
+@app.route("/register_animal", methods=["POST"])
 def register_animal():
     ANIMAUX_DB = get_db()
-    EMAIL_RX = r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
-    CP_RX = r'^[A-Z]\d[A-Z]\s?\d[A-Z]\d$'
-    ADDRESS_RX = r'^[0-9]+\s+[A-Za-zÀ-Ö\' -]+$'
-    CITY_RX = r'^[A-Za-zÀ-Ö\' -]+$'
+    EMAIL_RX = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+    CP_RX = r"^[A-Z]\d[A-Z]\s?\d[A-Z]\d$"
+    ADDRESS_RX = r"^[0-9]+\s+[A-Za-zÀ-Ö\' -]+$"
+    CITY_RX = r"^[A-Za-zÀ-Ö\' -]+$"
 
     try:
-        pet_name = request.form.get('name')
-        pet_age = int(request.form.get('age'))
-        pet_race = request.form.get('race')
-        pet_espece = request.form.get('espece')
-        pet_description = request.form.get('description')
-        owner_email = request.form.get('email')
-        owner_address = request.form.get('address')
-        owner_city = request.form.get('city')
-        owner_cp = request.form.get('cp')
+        pet_name = request.form.get("name")
+        pet_age = int(request.form.get("age"))
+        pet_race = request.form.get("race")
+        pet_espece = request.form.get("espece")
+        pet_description = request.form.get("description")
+        owner_email = request.form.get("email")
+        owner_address = request.form.get("address")
+        owner_city = request.form.get("city")
+        owner_cp = request.form.get("cp")
         information_list = [
             pet_name,
             pet_age,
@@ -214,23 +213,25 @@ def register_animal():
             owner_email,
             owner_address,
             owner_city,
-            owner_cp
+            owner_cp,
         ]
 
         # Est-ce que j'ai reçu toutes les données de mon formulaire?
         if any(information is None for information in information_list):
-            return redirect(url_for('error_page'))
+            return redirect(url_for("error_page"))
         # Les vérifications des règles business
         valid = (
-            pet_age >= 0 and pet_age <= 20 and
-            len(pet_name) >= 3 and len(pet_name) <= 20 and
-            re.fullmatch(EMAIL_RX, owner_email) and
-            re.fullmatch(CP_RX, owner_cp) and
-            re.fullmatch(ADDRESS_RX, owner_address) and
-            re.fullmatch(CITY_RX, owner_city)
+            pet_age >= 0
+            and pet_age <= 20
+            and len(pet_name) >= 3
+            and len(pet_name) <= 20
+            and re.fullmatch(EMAIL_RX, owner_email)
+            and re.fullmatch(CP_RX, owner_cp)
+            and re.fullmatch(ADDRESS_RX, owner_address)
+            and re.fullmatch(CITY_RX, owner_city)
         )
         if not valid:
-            return redirect(url_for('error_page'))
+            return redirect(url_for("error_page"))
         ANIMAUX_DB.add_animal(
             pet_name,
             pet_espece,
@@ -240,13 +241,15 @@ def register_animal():
             owner_email,
             owner_address,
             owner_city,
-            owner_cp)
-        last_animal_id = ANIMAUX_DB.get_last_animal()['id']
-        return redirect(url_for('page_descr_animal', pet_id=last_animal_id))
+            owner_cp,
+        )
+        last_animal_id = ANIMAUX_DB.get_last_animal()["id"]
+        return redirect(url_for("page_descr_animal", pet_id=last_animal_id))
     except Exception as e:
         print(f"there's an error {e}")
-        return redirect(url_for('error_page'))
+        return redirect(url_for("error_page"))
 
-@app.route('/error')
+
+@app.route("/error")
 def error_page():
-    return render_template('error_page.html')
+    return render_template("error_page.html")

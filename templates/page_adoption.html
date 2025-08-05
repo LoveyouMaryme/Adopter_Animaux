@@ -3,9 +3,8 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/page_adoption.css') }}"
 />
-{% endblock %} {% block title %}Adoption {{race}} {% endblock %} {% block
+{% endblock %} {% block title %}Adoption {{race or "d'animaux"}} {% endblock %} {% block
 content %}
-<div class="bg-primary" id="background-website">
   <!-- Hero section -->
   <div id="hero" class="container-fluid p-0 mt-3 overflow-hidden">
     <img
@@ -109,7 +108,6 @@ content %}
     </p>
   </div>
   {% endif %}
-</div>
 {% endblock %} {% block scripts %}
 <script src="{{ url_for('static', filename='js/page_adoption.js') }}"></script>
 {% endblock %}
