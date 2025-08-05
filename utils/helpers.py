@@ -19,9 +19,9 @@ def get_animals_carousel(shuffle_animaux):
 
 def next_animal_in_carousel(animal_dict, recently_shown_animals):
     next_animal_id = [
-        animal["id"] 
-        for animal 
-        in animal_dict 
+        animal["id"]
+        for animal
+        in animal_dict
         if animal not in recently_shown_animals][0]
     return next_animal_id
 
