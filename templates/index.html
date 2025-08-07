@@ -61,11 +61,19 @@
           <div
             class="pet-card bg-light d-flex flex-column w-100 h-100 p-0 pb-2 rounded-4 shadow"
           >
+            {% if pet.id < 8 %}
             <img
-              class="rounded-top-4 img-fluid"
-              src="{{ url_for('static', filename='images/cat-sleepy.jpeg') }}"
+              class="rounded-top-4 pet-picture img-fluid"
+              src="{{ url_for('static', filename='images/photo_animaux/' ~ pet.espece ~'.jpg') }}"
               alt="Image de {{ pet.espece }}"
             />
+            {% else %}
+            <img
+              class="rounded-top-4 pet-picture img-fluid"
+              src="{{ url_for('static', filename='images/photo_animaux/default.jpg') }}"
+              alt="Image de {{ pet.espece }}"
+            />
+            {% endif %}
             <div class="bg-light d-flex flex-column px-2">
               <div class="d-flex flex-column mt-1">
                 <p class="name-pet mb-0 fs-4 fs- fw-bolder text-secondary">
@@ -84,7 +92,7 @@
                 {% if pet.age >= 2 %}
                 <p class="text-dark">{{ pet.age }} ans</p>
                 {% else %}
-                <p class="text-dark">{{ pet.age }} ans</p>
+                <p class="text-dark">{{ pet.age }} an</p>
                 {% endif %}
               </div>
               <div class="icon-descr-pet d-flex flex-row gap-1">
@@ -116,7 +124,7 @@
 </div>
 
 <!-- Cards section -->
-<div class="container mb-5 py-5 align-content-end" id="card-section">
+<div class="container mb-5 py-5 align-content-center" id="card-section">
   <div class="row d-flex justify-content-center align-items-stretch g-2">
     {% for card in cards %}
     <div class="col-md-4">

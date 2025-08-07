@@ -3,9 +3,6 @@
   height: 8vh;
 }
 
-.numberPet {
-}
-
 .no-animal {
   height: 50vh;
 }
@@ -13,4 +10,10 @@
 .icon-descr-pet img {
   height: 2rem;
   width: 2rem;
+}
+
+.pet-picture {
+  object-fit: cover;
+  max-height: 20rem;
+  width: 100%;
 }

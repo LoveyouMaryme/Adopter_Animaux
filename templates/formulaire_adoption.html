@@ -3,10 +3,8 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/formulaire-adoption.css')}}"
 />
-{% endblock %} 
-{% block title %}Formulaire d'adoption{% endblock %}
-
-{% block content %}
+{% endblock %} {% block title %}Formulaire d'adoption{% endblock %} {% block
+content %}
 <div class="form-and-descr container-md">
   <div class="row">
     <!-- Formulaire -->
@@ -58,26 +56,6 @@
           </div>
         </div>
 
-        <!-- Race -->
-        <div class="row">
-          <div class="col">
-            <label for="petRaceInput" class="form-label"
-              >Race de l'animal</label
-            >
-            <input
-              name="race"
-              type="text"
-              class="form-control"
-              id="petRaceInput"
-              required
-            />
-            <div class="invalid-feedback custom-feedback">
-              Il faut mettre une race d'animal
-            </div>
-            <div class="valid-feedback custom-feedback">Bien :D .</div>
-          </div>
-        </div>
-
         <!-- Espèce -->
         <div class="row">
           <div class="col">
@@ -93,6 +71,26 @@
             />
             <div class="invalid-feedback custom-feedback">
               Il faut mettre un espèce d'animal
+            </div>
+            <div class="valid-feedback custom-feedback">Bien :D .</div>
+          </div>
+        </div>
+
+        <!-- Race -->
+        <div class="row">
+          <div class="col">
+            <label for="petRaceInput" class="form-label"
+              >Race de l'animal</label
+            >
+            <input
+              name="race"
+              type="text"
+              class="form-control"
+              id="petRaceInput"
+              required
+            />
+            <div class="invalid-feedback custom-feedback">
+              Il faut mettre une race d'animal
             </div>
             <div class="valid-feedback custom-feedback">Bien :D .</div>
           </div>

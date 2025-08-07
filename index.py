@@ -23,7 +23,7 @@ from werkzeug.utils import secure_filename
 from .database import Database
 from .utils.card_data import card_index_dict
 from .utils import helpers
-import re
+
 from flask import jsonify
 
 
@@ -110,6 +110,7 @@ def page_adoption_by_race(animal_type):
     ANIMAUX_DB = get_db()
     animaux_une_race = ANIMAUX_DB.get_espece(animal_type)
     nb_animaux_by_race = len(animaux_une_race)
+    print(animaux_une_race)
     return render_template(
         f"adoption_{animal_type}.html",
         pets=animaux_une_race,
@@ -123,6 +124,7 @@ def page_adoption_autre():
     ANIMAUX_DB = get_db()
     animaux_une_race = ANIMAUX_DB.get_uncommon()
     nb_animaux_by_race = len(animaux_une_race)
+    print(animaux_une_race)
     return render_template(
         f"adoption_autre.html",
         pets=animaux_une_race,
@@ -189,10 +191,7 @@ def get_results_from_searchbar():
 @app.route("/register_animal", methods=["POST"])
 def register_animal():
     ANIMAUX_DB = get_db()
-    EMAIL_RX = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
-    CP_RX = r"^[A-Z]\d[A-Z]\s?\d[A-Z]\d$"
-    ADDRESS_RX = r"^[0-9]+\s+[A-Za-zÀ-Ö\' -]+$"
-    CITY_RX = r"^[A-Za-zÀ-Ö\' -]+$"
+    
 
     try:
         pet_name = request.form.get("name")
@@ -219,19 +218,11 @@ def register_animal():
         # Est-ce que j'ai reçu toutes les données de mon formulaire?
         if any(information is None for information in information_list):
             return redirect(url_for("error_page"))
-        # Les vérifications des règles business
-        valid = (
-            pet_age >= 0
-            and pet_age <= 20
-            and len(pet_name) >= 3
-            and len(pet_name) <= 20
-            and re.fullmatch(EMAIL_RX, owner_email)
-            and re.fullmatch(CP_RX, owner_cp)
-            and re.fullmatch(ADDRESS_RX, owner_address)
-            and re.fullmatch(CITY_RX, owner_city)
-        )
+        # Ce sont les vérifications des règles business
+        valid = helpers.are_informations_valid(pet_age, pet_name, owner_email, owner_cp, owner_address, owner_city)
+        
         if not valid:
-            return redirect(url_for("error_page"))
+            return redirect(url_for("error_page"), 404)
         ANIMAUX_DB.add_animal(
             pet_name,
             pet_espece,
@@ -247,7 +238,7 @@ def register_animal():
         return redirect(url_for("page_descr_animal", pet_id=last_animal_id))
     except Exception as e:
         print(f"there's an error {e}")
-        return redirect(url_for("error_page"))
+        return redirect(url_for("error_page"), 404)
 
 
 @app.route("/error")

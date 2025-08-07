@@ -3,111 +3,123 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/page_adoption.css') }}"
 />
-{% endblock %} {% block title %}Adoption {{race or "d'animaux"}} {% endblock %} {% block
-content %}
-  <!-- Hero section -->
-  <div id="hero" class="container-fluid p-0 mt-3 overflow-hidden">
-    <img
-      src="{{ url_for('static', filename='images/baby-cutie-cat-awww.jpg') }}"
-      class="img-fluid w-100 object-fit-cover"
-      alt="bébé chat"
-    />
-  </div>
+{% endblock %} {% block title %}Adoption {{race or "d'animaux"}} {% endblock %}
+{% block content %}
+<!-- Hero section -->
+<div id="hero" class="container-fluid p-0 mt-3 overflow-hidden">
+  <img
+    src="{{ url_for('static', filename='images/baby-cutie-cat-awww.jpg') }}"
+    class="img-fluid w-100 object-fit-cover"
+    alt="bébé chat"
+  />
+</div>
 
-  <!-- Second Nav Section -->
-  <ul
-    class="nav bg-secondary nav-fill mt-2 d-flex flex-row align-content-center fs-5 fw-b"
-    id="nav-pets"
-  >
-    <li class="nav-item align-content-center">
-      <a
-        class="nav-link h-75 text-light align-content-center"
-        href="{{ url_for('page_adoption_by_race', animal_type='chat') }}"
-        >Chat</a
-      >
-    </li>
-    <li class="nav-item align-content-center">
-      <a
-        class="nav-link text-light"
-        href="{{ url_for('page_adoption_by_race', animal_type='chien') }}"
-        >Chien</a
-      >
-    </li>
-    <li class="nav-item align-content-center">
-      <a
-        class="nav-link text-light"
-        href="{{ url_for('page_adoption_by_race', animal_type='rongeur') }}"
-        >Rongeur</a
-      >
-    </li>
-    <li class="nav-item align-content-center">
-      <a class="nav-link text-light" href="{{ url_for('page_adoption_autre') }}"
-        >Wtf that's not a pet</a
-      >
-    </li>
-  </ul>
+<!-- Second Nav Section -->
+<ul
+  class="nav bg-secondary nav-fill mt-2 d-flex flex-row align-content-center fs-5 fw-b"
+  id="nav-pets"
+>
+  <li class="nav-item align-content-center">
+    <a
+      class="nav-link h-75 text-light align-content-center"
+      href="{{ url_for('page_adoption_by_race', animal_type='chat') }}"
+      >Chat</a
+    >
+  </li>
+  <li class="nav-item align-content-center">
+    <a
+      class="nav-link text-light"
+      href="{{ url_for('page_adoption_by_race', animal_type='chien') }}"
+      >Chien</a
+    >
+  </li>
+  <li class="nav-item align-content-center">
+    <a
+      class="nav-link text-light"
+      href="{{ url_for('page_adoption_by_race', animal_type='rongeur') }}"
+      >Rongeur</a
+    >
+  </li>
+  <li class="nav-item align-content-center">
+    <a class="nav-link text-light" href="{{ url_for('page_adoption_autre') }}"
+      >Autres</a
+    >
+  </li>
+</ul>
 
-  <!-- Number of pets -->
-  <div class="numberPet fs-1 ps-5 mt-5 mb-3">
-    <span class="text-secondary">{{ nbr }}</span>
+<!-- Number of pets -->
+<div class="numberPet fs-1 ps-5 mt-5 mb-3">
+  <span class="text-secondary">{{ nbr }}</span>
 
-    {% if race == "autre" %} {% if nbr > 0 %} autre animaux {% else %} autre
-    animal {% endif %} {% elif nbr > 0 %} {{ race }}<span>s</span>
-    {% else %} {{ race }} {% endif %}
-  </div>
+  {% if race == "autre" %} {% if nbr > 0 %} autres animaux {% else %} autre
+  animal {% endif %} {% elif nbr > 0 %} {{ race }}<span>s</span>
+  {% else %} {{ race }} {% endif %}
+</div>
 
-  <!-- Pet Cards -->
-  {% if pets %}
-  <div class="container">
-    <div class="row justify-content-center align-items-stretch g-4">
-      {% for pet in pets %}
-      <div class="col-sm-6 col-md-4 d-flex">
-        <div
-          class="pet-card bg-light w-100 h-100 p-0 pb-2 rounded-4 shadow d-flex flex-column"
-          data-url="{{ url_for('page_descr_animal', pet_id=pet.id) }}"
-          data-id="{{pet.id}}"
-        >
-          <img
-            class="rounded-top-4 img-fluid"
-            src="{{ url_for('static', filename='images/cat-sleepy.jpeg') }}"
-            alt="Image de {{ pet.espece }}"
-          />
-          <div class="bg-light d-flex flex-column px-2">
-            <div class="d-flex flex-column mt-1">
-              <p class="name-pet mb-0 fs-4 fw-bolder text-secondary">
-                {{ pet.nom }}
-              </p>
-              <p class="mt-0 mb-2 fs-6 fw-light text-muted">{{ pet.espece }}</p>
-            </div>
-            <div class="icon-descr-pet d-flex flex-row gap-1 mb-1">
-              <img
-                class="img-fluid"
-                src="{{ url_for('static', filename='images/icons/calendar.png') }}"
-                alt="Âge d'animal"
-              />
-              <p class="text-dark">{{ pet.age }}</p>
-            </div>
-            <div class="icon-descr-pet d-flex flex-row gap-1">
-              <img
-                class="img-fluid"
-                src="{{ url_for('static', filename='images/icons/location-pet.png') }}"
-                alt="Localisation"
-              />
-              <p class="text-dark">{{ pet.ville }}</p>
-            </div>
+<!-- Pet Cards -->
+<!-- Je sais, on aurait du mettre du jinja2 -->
+{% if pets %}
+<div class="container mb-5">
+  <div class="row justify-content-center align-items-stretch g-4">
+    {% for pet in pets %}
+    <div class="col-sm-6 col-md-4 d-flex">
+      <div
+        class="pet-card bg-light w-100 h-100 p-0 pb-2 rounded-4 shadow d-flex flex-column"
+        data-url="{{ url_for('page_descr_animal', pet_id=pet.id) }}"
+        data-id="{{pet.id}}"
+      >
+        {% if pet.id < 8 %}
+        <img
+          class="rounded-top-4 pet-picture img-fluid"
+          src="{{ url_for('static', filename='images/photo_animaux/' ~ pet.espece ~'.jpg') }}"
+          alt="Image de {{ pet.espece }}"
+        />
+        {% else %}
+        <img
+          class="rounded-top-4 pet-picture img-fluid"
+          src="{{ url_for('static', filename='images/photo_animaux/default.jpg') }}"
+          alt="Image de {{ pet.espece }}"
+        />
+        {% endif %}
+        <div class="bg-light d-flex flex-column px-2">
+          <div class="d-flex flex-column mt-1">
+            <p class="name-pet mb-0 fs-4 fw-bolder text-secondary">
+              {{ pet.nom }}
+            </p>
+            <p class="mt-0 mb-2 fs-6 fw-light text-muted">{{ pet.espece }}</p>
+          </div>
+          <div class="icon-descr-pet d-flex flex-row gap-1 mb-1">
+            <img
+              class="img-fluid"
+              src="{{ url_for('static', filename='images/icons/calendar.png') }}"
+              alt="Âge d'animal"
+            />
+            {% if pet.age >= 2 %}
+            <p class="text-dark">{{ pet.age }} ans</p>
+            {% else %}
+            <p class="text-dark">{{ pet.age }} an</p>
+            {% endif %}
+          </div>
+          <div class="icon-descr-pet d-flex flex-row gap-1">
+            <img
+              class="img-fluid"
+              src="{{ url_for('static', filename='images/icons/location-pet.png') }}"
+              alt="Localisation"
+            />
+            <p class="text-dark">{{ pet.ville }}</p>
           </div>
         </div>
       </div>
-      {% endfor %}
     </div>
+    {% endfor %}
   </div>
-  {% else %}
-  <div class="no-animal">
-    <p class="fs-4 text-center text-muted">
-      Aucun animal à adopter pour le moment.
-    </p>
-  </div>
-  {% endif %}
-{% endblock %} {% block scripts %}
+</div>
+{% else %}
+<div class="no-animal">
+  <p class="fs-4 text-center text-muted">
+    Aucun animal à adopter pour le moment.
+  </p>
+</div>
+{% endif %} {% endblock %} {% block scripts %}
 <script src="{{ url_for('static', filename='js/page_adoption.js') }}"></script>
 {% endblock %}

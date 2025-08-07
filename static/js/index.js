@@ -1,14 +1,21 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const arrowLeft = document.getElementById('arrow-left');
-    const arrowRight = document.getElementById('arrow-right');
-    const carouselContainer = document.getElementById('carousel-cards');
+document.addEventListener("DOMContentLoaded", () => {
+  const arrowLeft = document.getElementById("arrow-left");
+  const arrowRight = document.getElementById("arrow-right");
+  const carouselContainer = document.getElementById("carousel-cards");
 
-    const createAnimalCard = (pet) => {
-        const imageUrl = urlForStatic('images/cat-sleepy.jpeg');
-        const calendarIconUrl = urlForStatic('images/icons/calendar.png');
-        const locationIconUrl = urlForStatic('images/icons/location-pet.png');
+  const createAnimalCard = (pet) => {
+    let imageUrl;
+    if (pet.id < 8) {
+      imageUrl = urlForStatic(
+        "images/photo_animaux/" + pet.espece.toLowerCase() + ".jpg"
+      );
+    } else {
+      imageUrl = urlForStatic("images/photo_animaux/default.jpg");
+    }
+    const calendarIconUrl = urlForStatic("images/icons/calendar.png");
+    const locationIconUrl = urlForStatic("images/icons/location-pet.png");
 
-        return `
+    return `
             <div class="col-12 col-sm-6 col-lg-4 col-xl-2 d-flex flex-lg-column justify-content-center">
                 <div class="pet-card bg-light d-flex flex-column w-100 h-100 p-0 pb-2 rounded-4 shadow">
                     <img
@@ -45,44 +52,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
-    };
+  };
 
-    const updateCarousel = (animals) => {
-    carouselContainer.innerHTML = '';
+  const updateCarousel = (animals) => {
+    carouselContainer.innerHTML = "";
     animals.forEach((pet, index) => {
-        const cardHTML = createAnimalCard(pet);
-        
-        carouselContainer.insertAdjacentHTML('beforeend', cardHTML);
-        
-        const newCard = carouselContainer.lastElementChild;
-        
-        newCard.classList.add('carousel-card-enter');
-        
-        setTimeout(() => {
-            newCard.classList.add('active');
-        }, index * 50); 
-    });
-};
+      const cardHTML = createAnimalCard(pet);
 
-    // Gestion de la flèche de droite
-    arrowRight.addEventListener('click', async () => {
-        try {
-            const response = await fetch('/api/get_next_animal_carousel');
-            const data = await response.json();
-            updateCarousel(data);
-        } catch (error) {
-            console.error('Erreur lors du chargement des animaux suivants:', error);
-        }
-    });
+      carouselContainer.insertAdjacentHTML("beforeend", cardHTML);
 
-    // Gestion de la flèche de gauche
-    arrowLeft.addEventListener('click', async () => {
-        try {
-            const response = await fetch('/api/get_previous_animal_carousel');
-            const data = await response.json();
-            updateCarousel(data);
-        } catch (error) {
-            console.error('Erreur lors du chargement des animaux précédents:', error);
-        }
+      const newCard = carouselContainer.lastElementChild;
+
+      newCard.classList.add("carousel-card-enter");
+
+      setTimeout(() => {
+        newCard.classList.add("active");
+      }, index * 50);
     });
+  };
+
+  // Gestion de la flèche de droite
+  arrowRight.addEventListener("click", async () => {
+    try {
+      const response = await fetch("/api/get_next_animal_carousel");
+      const data = await response.json();
+      updateCarousel(data);
+    } catch (error) {
+      console.error("Erreur lors du chargement des animaux suivants:", error);
+    }
+  });
+
+  // Gestion de la flèche de gauche
+  arrowLeft.addEventListener("click", async () => {
+    try {
+      const response = await fetch("/api/get_previous_animal_carousel");
+      const data = await response.json();
+      updateCarousel(data);
+    } catch (error) {
+      console.error("Erreur lors du chargement des animaux précédents:", error);
+    }
+  });
 });

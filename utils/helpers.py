@@ -4,6 +4,10 @@ from flask import g
 from ..database import Database
 from ..utils.card_data import card_index_dict
 import random
+import re
+
+
+
 
 
 def shuffle_animaux(db):
@@ -40,3 +44,24 @@ def get_animals_carousel_from_index(animals_list, start_index):
         index = (start_index + i) % num_animals
         carousel.append(animals_list[index])
     return carousel
+
+
+def are_informations_valid(pet_age, pet_name, owner_email, owner_cp, owner_address, owner_city):
+    EMAIL_RX = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+    CP_RX = r"^[A-Z]\d[A-Z]\s?\d[A-Z]\d$"
+    ADDRESS_RX = r"^[0-9]+\s+[A-Za-zÀ-Ö\' -]+$"
+    CITY_RX = r"^[A-Za-zÀ-Ö\' -]+$"
+
+    valid = (
+            pet_age >= 0
+            and pet_age <= 20
+            and len(pet_name) >= 3
+            and len(pet_name) <= 20
+            and re.fullmatch(EMAIL_RX, owner_email)
+            and re.fullmatch(CP_RX, owner_cp)
+            and re.fullmatch(ADDRESS_RX, owner_address)
+            and re.fullmatch(CITY_RX, owner_city)
+        )
+    return valid
+
+
