@@ -223,6 +223,7 @@ def register_animal():
         
         if not valid:
             return redirect(url_for("error_page"), 404)
+        
         ANIMAUX_DB.add_animal(
             pet_name,
             pet_espece,
