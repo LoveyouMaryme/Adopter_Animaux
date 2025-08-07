@@ -3,22 +3,37 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/animal_descr_page.css') }}"
 />
-{% endblock %}
-{% block title %}Description du compagnon{% endblock %}
-{% block content %}
+{% endblock %} {% block title %}Description du compagnon{% endblock %} {% block
+content %}
 <div
   class="container-fluid bg-primary min-vh-100 d-flex align-items-center justify-content-center"
 >
   <div class="card p-4 rounded" style="max-width: 800px; width: 100%">
     <div class="row g-4 align-items-center justify-content-center">
       <!-- Info -->
-      <div class="col-md-7 text-center">
-        <h2 class="fw-bold text-secondary mb-2 tex">{{ fiche_animal.nom }}</h2>
+      <div class="col-md-7">
+        <h2 class="fw-bold text-secondary mb-2 text-center">{{ fiche_animal.nom }}</h2>
+
         <p class="mb-1"><strong>Espèce :</strong> {{ fiche_animal.espece }}</p>
         <p class="mb-1"><strong>Race :</strong> {{ fiche_animal.race }}</p>
         <p class="mb-1"><strong>Âge :</strong> {{ fiche_animal.age }} ans</p>
+
+        {% if fiche_animal.description %}
+        <p class="mb-1">
+          <strong>Description :</strong> {{ fiche_animal.description }}
+        </p>
+        {% endif %}
+
+        <p class="mb-1"><strong>Ville :</strong> {{ fiche_animal.ville }}</p>
+        <p class="mb-1">
+          <strong>Adresse :</strong> {{ fiche_animal.adresse }}, {{
+          fiche_animal.cp }}
+        </p>
+
         <p class="mb-3">
-          <strong>Description :</strong><br />{{ fiche_animal.description }}
+          <strong>Contact :</strong>
+            {{ fiche_animal.courriel }}</a
+          >
         </p>
 
         <a href="{{ url_for('index') }}" class="btn btn-outline-secondary mt-2">

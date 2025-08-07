@@ -60,6 +60,8 @@
         >
           <div
             class="pet-card bg-light d-flex flex-column w-100 h-100 p-0 pb-2 rounded-4 shadow"
+            data-url="{{ url_for('page_descr_animal', pet_id=pet.id) }}"
+            data-id="{{pet.id}}"
           >
             {% if pet.id < 8 %}
             <img

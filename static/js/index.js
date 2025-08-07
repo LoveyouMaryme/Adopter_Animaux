@@ -99,9 +99,8 @@ console.log(petCards);
 
 Array.from(petCards).forEach((element) => {
   element.addEventListener("click", () => {
-    const url = element;
-    console.log(url);
+    const url = element.dataset.url;
 
-    // window.location.href = url;
+    window.location.href = url;
   });
 });

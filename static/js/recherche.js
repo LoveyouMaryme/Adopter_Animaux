@@ -141,6 +141,9 @@ function updateResults(results) {
     const new_li = document.createElement("li");
     new_li.classList.add("mb-2", "p-2", "border", "rounded");
 
+    new_li.setAttribute("data-id", id);
+    new_li.setAttribute("data-url", `/descr_animal/${id}`);
+
     new_li.innerHTML = `
       <strong>${nom}</strong><br>
       <span class="text-secondary">${espece}</span> -
