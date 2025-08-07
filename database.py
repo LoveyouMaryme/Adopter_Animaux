@@ -54,7 +54,7 @@ class Database:
         cursor.execute(query)
         all_data = cursor.fetchall()
         return [_build_animal(item) for item in all_data]
-    
+
     def get_espece(self, animal_espece):
         cursor = self.get_connection().cursor()
         query = ("""
@@ -69,7 +69,7 @@ class Database:
             return all_data
         else:
             return [_build_animal(item) for item in all_data]
-        
+
     def get_last_animal(self):
         cursor = self.get_connection().cursor()
         query = ("""
@@ -85,7 +85,7 @@ class Database:
             return item
         else:
             return _build_animal(item)
-        
+
     def get_five_most_common_espece(self):
         cursor = self.get_connection().cursor()
         query = ("""SELECT espece
@@ -100,7 +100,7 @@ class Database:
         cursor.execute(query)
         all_data = cursor.fetchall()
         return all_data
-    
+
     def get_five_most_common_race(self, especes):
         cursor = self.get_connection().cursor()
 
@@ -151,14 +151,14 @@ class Database:
         else:
             where_statement = "WHERE ".join(where_clauses)
         query = f"""
-            SELECT nom, espece, race, ville
+            SELECT id, nom, espece, race, ville
             FROM animaux
             {where_statement};
         """
         cursor.execute(query, parameters)
         all_data = cursor.fetchall()
         return all_data
-    
+
     def get_data_everywhere(self, filters):
         cursor = self.get_connection().cursor()
         columns = ['nom', 'espece', 'race', 'description']

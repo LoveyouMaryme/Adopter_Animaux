@@ -189,8 +189,6 @@ def get_results_from_searchbar():
 @app.route("/register_animal", methods=["POST"])
 def register_animal():
     ANIMAUX_DB = get_db()
-    
-
     try:
         pet_name = request.form.get("name")
         pet_age = int(request.form.get("age"))
@@ -217,11 +215,17 @@ def register_animal():
         if any(information is None for information in information_list):
             return redirect(url_for("error_page"))
         # Ce sont les vérifications des règles business
-        valid = helpers.are_informations_valid(pet_age, pet_name, owner_email, owner_cp, owner_address, owner_city)
-        
+        valid = helpers.are_informations_valid(
+            pet_age,
+            pet_name,
+            owner_email,
+            owner_cp,
+            owner_address,
+            owner_city
+        )
+
         if not valid:
             return redirect(url_for("error_page"), 404)
-        
         ANIMAUX_DB.add_animal(
             pet_name,
             pet_espece,

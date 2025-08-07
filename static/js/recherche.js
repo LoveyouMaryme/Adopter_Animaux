@@ -4,6 +4,7 @@ const container_button_race = document.getElementById("container-button-race");
 const container_results = document.getElementById("container-results");
 const search_button = document.getElementById("search-button");
 const searchBar = document.getElementById("searchBar");
+const petDescr = document.getElementsByClassName("pet-descr");
 
 // Functions
 
@@ -14,8 +15,6 @@ function toggleButton(button) {
 
 // Permet de append ensemble les actif button de especes pour le url
 function getSelectedParamString(isEspeces = false) {
-  console.log("c'est mes races ca");
-  console.log(isEspeces);
   const prefix = isEspeces ? "especes" : "races";
   return getActiveButtons(isEspeces)
     .map((val) => `${prefix}=${val}`)
@@ -45,7 +44,6 @@ function fetchRacesForActiveEspeces() {
     .then((response) => response.json())
     .then((data) => {
       updateRaces(data);
-      console.log(data);
       return data;
     })
     .catch((error) => {
@@ -87,7 +85,6 @@ function fetchResults(url) {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
       return data;
     })
     .catch((error) => {
@@ -101,8 +98,6 @@ async function displayResults() {
   let url_results = "http://127.0.0.1:5000/api/results?";
   const especeParam = getSelectedParamString(true);
   const raceParam = getSelectedParamString(false);
-  console.log("Mes races params");
-  console.log(raceParam);
   const filters = [];
 
   if (
@@ -121,7 +116,6 @@ async function displayResults() {
   }
 
   url_results += filters.join("&");
-  console.log(url_results);
 
   return await fetchResults(url_results);
 }
@@ -136,13 +130,13 @@ function updateResults(results) {
   }
 
   results.forEach((element) => {
-    const [nom, espece, race, ville] = element;
+    const [id, nom, espece, race, ville] = element;
 
     const new_li = document.createElement("li");
-    new_li.classList.add("mb-2", "p-2", "border", "rounded");
+    new_li.classList.add("mb-2", "p-2", "border", "rounded", "pet-descr");
 
     new_li.setAttribute("data-id", id);
-    new_li.setAttribute("data-url", `/descr_animal/${id}`);
+    new_li.setAttribute("data-url", "/animal_descr_page/" + id);
 
     new_li.innerHTML = `
       <strong>${nom}</strong><br>
@@ -153,6 +147,14 @@ function updateResults(results) {
     `;
 
     container_results.appendChild(new_li);
+
+    Array.from(petDescr).forEach((element) => {
+      element.addEventListener("click", () => {
+        const url = element.dataset.url;
+
+        window.location.href = url;
+      });
+    });
   });
 }
 
@@ -161,11 +163,8 @@ async function searchbarResult() {
   // 1. grab the raw string from your input
   const searchBar = document.getElementById("searchBar");
   const words = searchBar.value.trim();
-  console.log(words);
 
   const wordList = words.split(/\s+/);
-
-  console.log(wordList);
 
   const baseUrl = "http://127.0.0.1:5000/api/results_searchbar";
   const filters = wordList.map((word) => `filters=${word}`);

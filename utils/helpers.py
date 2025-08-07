@@ -7,9 +7,6 @@ import random
 import re
 
 
-
-
-
 def shuffle_animaux(db):
     list_animaux = db.get_animaux()
     random_list_animaux = random.sample(list_animaux, len(list_animaux))
@@ -46,7 +43,13 @@ def get_animals_carousel_from_index(animals_list, start_index):
     return carousel
 
 
-def are_informations_valid(pet_age, pet_name, owner_email, owner_cp, owner_address, owner_city):
+def are_informations_valid(
+        pet_age,
+        pet_name,
+        owner_email,
+        owner_cp,
+        owner_address,
+        owner_city):
     EMAIL_RX = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
     CP_RX = r"^[A-Z]\d[A-Z]\s?\d[A-Z]\d$"
     ADDRESS_RX = r"^[0-9]+\s+[A-Za-zÀ-Ö\' -]+$"
@@ -63,5 +66,3 @@ def are_informations_valid(pet_age, pet_name, owner_email, owner_cp, owner_addre
             and re.fullmatch(CITY_RX, owner_city)
         )
     return valid
-
-
