@@ -129,19 +129,26 @@ async function displayResults() {
 function updateResults(results) {
   container_results.innerHTML = "";
 
+  if (results.length === 0) {
+    container_results.innerHTML =
+      "<p class='text-muted'>Aucun résultat trouvé.</p>";
+    return;
+  }
+
   results.forEach((element) => {
-    console.log("je rentre la??");
+    const [nom, espece, race, ville] = element;
+
     const new_li = document.createElement("li");
-    const name = document.createElement("strong");
-    name.textContent = element[0];
-    const espece = document.createElement("span");
-    espece.classList.add("text-muted");
-    espece.textContent = element[1];
-    const race = document.createElement("span");
-    race.textContent = element[2];
-    const ville = document.createElement("span");
-    ville.textContent = element[3];
-    new_li.append(name, espece, race, ville);
+    new_li.classList.add("mb-2", "p-2", "border", "rounded");
+
+    new_li.innerHTML = `
+      <strong>${nom}</strong><br>
+      <span class="text-secondary">${espece}</span> -
+      <span>${race}</span><br>
+      <i class="bi bi-geo-alt-fill me-1"></i>
+      <span>${ville}</span>
+    `;
+
     container_results.appendChild(new_li);
   });
 }
@@ -162,8 +169,6 @@ async function searchbarResult() {
   const queryString = filters.join("&");
   const finalUrl = `${baseUrl}?${queryString}`;
 
-  console.log("→ URL générée :", finalUrl);
-
   const data = await fetchResults(finalUrl);
   return data;
 }
@@ -181,4 +186,12 @@ Array.from(button_especes).forEach((button) => {
 search_button.addEventListener("click", async () => {
   const searchBarResult = await searchbarResult();
   updateResults(searchBarResult);
+});
+
+searchBar.addEventListener("keydown", async (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    const searchBarResult = await searchbarResult();
+    updateResults(searchBarResult);
+  }
 });

@@ -110,7 +110,6 @@ def page_adoption_by_race(animal_type):
     ANIMAUX_DB = get_db()
     animaux_une_race = ANIMAUX_DB.get_espece(animal_type)
     nb_animaux_by_race = len(animaux_une_race)
-    print(animaux_une_race)
     return render_template(
         f"adoption_{animal_type}.html",
         pets=animaux_une_race,
@@ -124,7 +123,6 @@ def page_adoption_autre():
     ANIMAUX_DB = get_db()
     animaux_une_race = ANIMAUX_DB.get_uncommon()
     nb_animaux_by_race = len(animaux_une_race)
-    print(animaux_une_race)
     return render_template(
         f"adoption_autre.html",
         pets=animaux_une_race,

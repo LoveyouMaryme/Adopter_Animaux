@@ -3,3 +3,9 @@ body,
 .background {
   height: 100vh;
 }
+
+#background-website {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
