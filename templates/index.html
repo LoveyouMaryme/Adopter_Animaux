@@ -5,201 +5,150 @@
 />
 
 {% endblock %} {% block title %}Document{% endblock %} {% block content %}
-  <!-- Hero section -->
-  <div class="container py-5 mb-5" id="hero">
-    <div class="row">
-      <div
-        class="col-md-6 d-flex flex-column justify-content-center align-items-center px-md-3"
-      >
-        <p class="fs-1 fw-bolder px-5 mb-3 text-dark text-center">
-          À&nbsp;la&nbsp;maison,&nbsp;c’est&nbsp;mieux&nbsp;!<br />
-          <span class="text-secondary">Grâce&nbsp;à&nbsp;vous</span>,&nbsp;des&nbsp;cœurs<br />
-          se&nbsp;rencontrent
-        </p>
-        <button
-          class="btn btn-secondary p-1 btn-md fs-6 fw-semi-bold rounded-3"
-        >
-          Faites le saut
-        </button>
-      </div>
-      <div class="col">
+<!-- Hero section -->
+<div class="container py-5 mb-5" id="hero">
+  <div class="row">
+    <div
+      class="col-md-6 d-flex flex-column justify-content-center align-items-center px-md-3"
+    >
+      <p class="fs-1 fw-bolder px-5 mb-3 text-dark text-center">
+        À&nbsp;la&nbsp;maison,&nbsp;c’est&nbsp;mieux&nbsp;!<br />
+        <span class="text-secondary">Grâce&nbsp;à&nbsp;vous</span
+        >,&nbsp;des&nbsp;cœurs<br />
+        se&nbsp;rencontrent
+      </p>
+      <button class="btn btn-secondary p-1 btn-md fs-6 fw-semi-bold rounded-3">
+        Faites le saut
+      </button>
+    </div>
+    <div class="col">
+      <img
+        class="img-fluid rounded-5 shadow"
+        src="{{ url_for('static', filename='images/chat-dort.jpg') }}"
+        alt="Chat qui dort"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- Pet carousel section -->
+<div
+  class="container-fluid px-3 mb-5 w-100 align-content-center"
+  id="pet-section"
+>
+  <div class="row align-items-center justify-content-center">
+    <!-- Left Arrow -->
+    <div class="col-auto d-flex justify-content-center">
+      <div class="pet-switch">
         <img
-          class="img-fluid rounded-5 shadow"
-          src="{{ url_for('static', filename='images/chat-dort.jpg') }}"
-          alt="Chat qui dort"
+          id="arrow-left"
+          src="{{ url_for('static', filename='images/icons/arrow-left.png') }}"
+          alt="Voir autre animal"
+        />
+      </div>
+    </div>
+
+    <!-- Pet Cards -->
+    <div class="col">
+      <div
+        id="carousel-cards"
+        class="row g-1 justify-content-center align-content-stretch d-flex"
+      >
+        {% for pet in carousel %}
+        <div
+          class="col-12 col-sm-6 col-lg-4 col-xl-2 d-flex flex-lg-column justify-content-center"
+        >
+          <div
+            class="pet-card bg-light d-flex flex-column w-100 h-100 p-0 pb-2 rounded-4 shadow"
+          >
+            <img
+              class="rounded-top-4 img-fluid"
+              src="{{ url_for('static', filename='images/cat-sleepy.jpeg') }}"
+              alt="Image de {{ pet.espece }}"
+            />
+            <div class="bg-light d-flex flex-column px-2">
+              <div class="d-flex flex-column mt-1">
+                <p class="name-pet mb-0 fs-4 fs- fw-bolder text-secondary">
+                  {{ pet.nom }}
+                </p>
+                <p class="mt-0 mb-2 fs-6 fw-light text-muted">
+                  {{ pet.espece }}
+                </p>
+              </div>
+              <div class="icon-descr-pet d-flex flex-row gap-1 mb-1">
+                <img
+                  class="img-fluid"
+                  src="{{ url_for('static', filename='images/icons/calendar.png') }}"
+                  alt="Âge d'animal"
+                />
+                {% if pet.age >= 2 %}
+                <p class="text-dark">{{ pet.age }} ans</p>
+                {% else %}
+                <p class="text-dark">{{ pet.age }} ans</p>
+                {% endif %}
+              </div>
+              <div class="icon-descr-pet d-flex flex-row gap-1">
+                <img
+                  class="img-fluid"
+                  src="{{ url_for('static', filename='images/icons/location-pet.png') }}"
+                  alt="Localisation"
+                />
+                <p class="text-dark">{{ pet.ville }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Right Arrow -->
+    <div class="col-auto d-flex justify-content-center">
+      <div class="pet-switch">
+        <img
+          id="arrow-right"
+          src="{{ url_for('static', filename='images/icons/arrow-right.png') }}"
+          alt="Voir autre animal"
         />
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Pet carousel section -->
-  <div
-    class="container-fluid px-3 mb-5 w-100 align-content-center"
-    id="pet-section"
-  >
-    <div class="row align-items-center justify-content-center">
-      <!-- Left Arrow -->
-      <div class="col-auto d-flex justify-content-center">
-        <div class="pet-switch">
-          <img
-            id="arrow-left"
-            src="{{ url_for('static', filename='images/icons/arrow-left.png') }}"
-            alt="Voir autre animal"
-          />
-        </div>
-      </div>
-
-      <!-- Pet Cards -->
-      <div class="col">
-        <div
-          id="carousel-cards"
-          class="row g-1 justify-content-center align-content-stretch d-flex"
-        >
-          {% for pet in carousel %}
-          <div
-            class="col-12 col-sm-6 col-lg-4 col-xl-2 d-flex flex-lg-column justify-content-center"
+<!-- Cards section -->
+<div class="container mb-5 py-5 align-content-end" id="card-section">
+  <div class="row d-flex justify-content-center align-items-stretch g-2">
+    {% for card in cards %}
+    <div class="col-md-4">
+      <div
+        class="bg-light rounded-3 shadow p-3 text-center h-100 w-100 d-flex flex-column justify-content-between"
+      >
+        <img
+          class="img-fluid mx-auto"
+          src="{{ url_for('static', filename=card.image_link) }}"
+          alt="{{ card.text_button }}"
+        />
+        <p class="mt-1 text-dark">{{ card.text }}</p>
+        <div class="px-3 d-flex justify-content-center">
+          <a
+            href="{{ url_for(card.href)}}"
+            class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5"
+            role="button"
           >
-            <div
-              class="pet-card bg-light d-flex flex-column w-100 h-100 p-0 pb-2 rounded-4 shadow"
-            >
-              <img
-                class="rounded-top-4 img-fluid"
-                src="{{ url_for('static', filename='images/cat-sleepy.jpeg') }}"
-                alt="Image de {{ pet.espece }}"
-              />
-              <div class="bg-light d-flex flex-column px-2">
-                <div class="d-flex flex-column mt-1">
-                  <p class="name-pet mb-0 fs-4 fs- fw-bolder text-secondary">
-                    {{ pet.nom }}
-                  </p>
-                  <p class="mt-0 mb-2 fs-6 fw-light text-muted">
-                    {{ pet.espece }}
-                  </p>
-                </div>
-                <div class="icon-descr-pet d-flex flex-row gap-1 mb-1">
-                  <img
-                    class="img-fluid"
-                    src="{{ url_for('static', filename='images/icons/calendar.png') }}"
-                    alt="Âge d'animal"
-                  />
-                  <p class="text-dark">{{ pet.age }}</p>
-                </div>
-                <div class="icon-descr-pet d-flex flex-row gap-1">
-                  <img
-                    class="img-fluid"
-                    src="{{ url_for('static', filename='images/icons/location-pet.png') }}"
-                    alt="Localisation"
-                  />
-                  <p class="text-dark">{{ pet.ville }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-
-      <!-- Right Arrow -->
-      <div class="col-auto d-flex justify-content-center">
-        <div class="pet-switch">
-          <img
-            id="arrow-right"
-            src="{{ url_for('static', filename='images/icons/arrow-right.png') }}"
-            alt="Voir autre animal"
-          />
+            {{ card.text_button }}</a
+          >
         </div>
       </div>
     </div>
+    {% endfor %}
   </div>
+</div>
 
-  <!-- Cards section -->
-  <div class="container mb-5 py-5 align-content-end" id="card-section">
-    <div class="row d-flex justify-content-center align-items-stretch g-2">
-      {% for card in cards %}
-      <div class="col-md-4">
-        <div
-          class="bg-light rounded-3 shadow p-3 text-center h-100 w-100 d-flex flex-column justify-content-between"
-        >
-          <img
-            class="img-fluid mx-auto"
-            src="{{ url_for('static', filename=card.image_link) }}"
-            alt="{{ card.text_button }}"
-          />
-          <p class="mt-1 text-dark">{{ card.text }}</p>
-          <div class="px-3 d-flex justify-content-center">
-            <a
-              href="{{ url_for(card.href)}}"
-              class="btn btn-sm btn-secondary mt-1 py-1 px-2 rounded-5"
-              role="button"
-            >
-              {{ card.text_button }}</a
-            >
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="mt-5">
-    <div class="container justify-content-center">
-      <div class="row justify-content-center text-center">
-        <div class="col-md-4 mb-3">
-          <h5>About Us</h5>
-          <p>
-            Nous aimons les chats et c'est triste qu'il en ait aucun dans la
-            database initiale
-          </p>
-        </div>
-        <div class="col-md-4 mb-3 justify-items-center">
-          <h5>Quick Links</h5>
-          <ul class="list-unstyled">
-            <li>
-              <a
-                href="{{ url_for('page_adoption') }}"
-                class="text-decoration-none text-white"
-                >Adoption</a
-              >
-            </li>
-            <li>
-              <a
-                href="{{ url_for('page_reloger') }}"
-                class="text-decoration-none text-white"
-                >Reloger</a
-              >
-            </li>
-            <li>
-              <a
-                href="{{ url_for('page_contact') }}"
-                class="text-decoration-none text-white"
-                >Contact</a
-              >
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-4 mb-3">
-          <h5>Follow Us</h5>
-          <ul class="list-inline social-icons">
-            <li class="list-inline-item">
-              <a href="#" class="text-white"><i class="bi bi-twitter"></i></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#" class="text-white"><i class="bi bi-twitter"></i></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
 {% endblock %} {% block scripts %}
 <script>
-    function urlForStatic(filename) {
-        return "{{ url_for('static', filename='') }}" + filename;
-    }
+  function urlForStatic(filename) {
+    return "{{ url_for('static', filename='') }}" + filename;
+  }
 </script>
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}

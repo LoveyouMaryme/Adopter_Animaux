@@ -119,6 +119,61 @@
       </nav>
 
       {% block content %} {% endblock %}
+      <!-- Footer -->
+      <footer>
+        <div class="container justify-content-center align-items-center d-flex">
+          <div class="row w-100 text-center">
+            <div class="col-md-4 mb-3">
+              <h5>À propos de nous</h5>
+              <p>
+                Nous aimons les chats et c'est triste qu'il en ait aucun dans la
+                database initiale
+              </p>
+            </div>
+            <div class="col-md-4 mb-3 justify-items-center">
+              <h5>Liens rapides</h5>
+              <ul class="list-unstyled">
+                <li>
+                  <a
+                    href="{{ url_for('page_adoption') }}"
+                    class="text-decoration-none text-white"
+                    >Adoption</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{{ url_for('page_reloger') }}"
+                    class="text-decoration-none text-white"
+                    >Reloger</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{{ url_for('page_contact') }}"
+                    class="text-decoration-none text-white"
+                    >Contact</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-4 mb-3">
+              <h5>Suis-nous!</h5>
+              <ul class="list-inline social-icons">
+                <li class="list-inline-item">
+                  <a href="#" class="text-white"
+                    ><i class="bi bi-twitter"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#" class="text-white"
+                    ><i class="bi bi-instagram"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
 
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
